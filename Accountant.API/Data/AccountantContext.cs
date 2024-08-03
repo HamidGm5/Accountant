@@ -14,6 +14,8 @@ namespace Accountant.API.Data
         public DbSet<User> Users { get; set; }
         public DbSet<IncomeTransaction> IncomeTransactions { get; set; }
         public DbSet<PaymentTransaction> PaymentTransactions { get; set; }
+        public DbSet<Loan> Loans { get; set; }
+        public DbSet<Installment> Installments { get; set; }
 
     }
 }

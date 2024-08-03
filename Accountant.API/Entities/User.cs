@@ -14,5 +14,6 @@ namespace Accountant.API.Entities
 
         public ICollection<PaymentTransaction> PaymentTransactions { get; set; }
         public ICollection<IncomeTransaction> IncomeTransactions { get; set; }
+        public ICollection<Loan> Loans { get; set; }
     }
 }

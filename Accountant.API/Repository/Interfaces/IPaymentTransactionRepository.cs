@@ -11,7 +11,7 @@ namespace Accountant.API.Repository.Interfaces
         Task<PaymentTransaction> AddPaymentTransaction(PaymentTransaction transactionDto);
         Task<PaymentTransaction> UpdatePaymentTransaction(PaymentTransaction transaction);
         Task<PaymentTransaction> DeletePaymentTransaction(PaymentTransaction payment);
-        public Task<bool> DeletePaymentTransactions(int userid);
+        Task<bool> DeletePaymentTransactions(int userid);
         Task<bool> Save();
         Task<bool> PaymentExists(int transactionid);
     }

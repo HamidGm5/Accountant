@@ -21,12 +21,13 @@ builder.Services.AddDbContext<AccountantContext>
     (option =>
     {
         option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-                
+
     });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPaymentTransactionRepository, PaymentTransactionRepository>();
 builder.Services.AddScoped<IIncomeTransactionRepository, IncomeTransactionRepository>();
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 
 var app = builder.Build();
 

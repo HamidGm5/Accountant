@@ -58,11 +58,11 @@ namespace Accountant.API.Repository
 
         public async Task<User> SignUp(User users)
         {
-           var newuser = await _context.AddAsync(users);
-         
-            if(newuser != null)
+            var newuser = await _context.AddAsync(users);
+
+            if (newuser != null)
             {
-                await _context.SaveChangesAsync();
+                await Save();
                 return users;
             }
             else

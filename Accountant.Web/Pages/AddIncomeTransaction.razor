@@ -1,0 +1,44 @@
+﻿@page "/AddIncome/{Userid:int}/{username}/{password}"
+@inherits AddIncomeTransactionBase
+
+<div class="row">
+    <div class="add-pay-box">
+        <h2 class="text-white mb-2">
+            Add New Payment Transaction
+        </h2>
+
+        <label class ="transaction-lbl">
+            Enter Transaction Time :
+        </label>
+
+        <input class="income-input" type="datetime" @bind="@TransactionTime" />
+
+        <br />
+
+        <label class="transaction-lbl">
+            Enter Transaction Amount :
+        </label>
+
+        <input class="income-input" type="number" @bind="@Amount" />
+
+        <br />
+
+        <label class="transaction-lbl">
+            Enter Transaction Description :
+        </label>
+
+        <input class="income-input" type="text" @bind="@Descriptions" />
+
+        <br />
+        <br />
+
+        <a class="btn btn-submit" @onclick="() => AddIncome_Click()">
+            Click For Add New Payment Transaction !
+        </a>
+
+        @if (ErorMessage != null)
+        {
+            <DisplayEror ErorMessage="@ErorMessage"></DisplayEror>
+        }
+    </div>
+</div>

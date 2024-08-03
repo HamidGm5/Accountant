@@ -1,0 +1,51 @@
+﻿.main-page{
+    margin :auto;
+}
+
+table {
+    width: 100%;
+    border: 2px solid rgb(183, 0, 0, 0.85);
+    margin-top: 18px;
+}
+
+td, th {
+    padding: auto;
+    text-align: center;
+    border-bottom: 1px solid rgb(227, 0, 0, 0.62);
+    border-right: 1px groove rgb(213, 0, 73)
+}
+
+a{
+    text-decoration : none;
+    color:rgb(229, 229, 229);
+}
+
+thead, th {
+    font-weight: bolder;
+}
+
+.total {
+    font-weight: bolder;
+    align-items :center;
+    padding-top: 25px;
+    border-right: hidden;
+}
+
+.total-amount {
+    font-weight: 600;
+    border-right: hidden;
+    padding-top: 25px;
+}
+
+.update-transaction {
+    background-color: rgb(2, 163, 188);
+    color: rgb(189, 189, 189);
+    margin-right: 8px;
+    border-radius: 5px;
+}
+
+.delete-transaction {
+    background-color: rgb(226, 18, 18);
+    color: rgb(214, 214, 214);
+    border-radius: 8px;
+}

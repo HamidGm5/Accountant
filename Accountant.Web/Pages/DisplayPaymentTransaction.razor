@@ -1,0 +1,49 @@
+﻿@inherits DisplayPeymentTransactionBase
+
+
+<div class="row">
+    <div class="main-page">
+        <table>
+            <thead>
+                <tr>
+                    <th> Transaction Time </th>
+                    <th> Amount </th>
+                    <th> Descriptions </th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in PaymentTransactions)
+                {
+                    var deletelink = $"/DeletePayment/{Username}/{Password}/{item.Id}";
+                    var updatelink = $"/UpdatePayment/{Username}/{Password}/{item.Id}";
+
+                    <tr>
+                        <td> @item.TransactionTime.ToString("dd - MM - yyyy  hh:mm tt") </td>
+                        <td> @item.Amount.ToString("C") </td>
+                        <td> @item.Descriptions  </td>
+
+                        <td class="update-transaction">
+                            <a href="@updatelink">
+                                <span class="oi oi-pencil"></span>
+                            </a>
+                        </td>
+
+                        <td class="delete-transaction">
+                            <a href="@deletelink">
+                                <span class="oi oi-trash"></span>
+                            </a>
+                        </td>
+
+                    </tr>
+                }
+
+                <tr>
+                    <td class="total"><b>Total</b></td>
+                    <td class="total-amount"><b> @PaymentTransactions.Sum(pt => pt.Amount).ToString("C") </b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

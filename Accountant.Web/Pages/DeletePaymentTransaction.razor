@@ -1,0 +1,135 @@
+﻿@page "/DeletePayment/{Username}/{Password}/{TransactionId:int}"
+
+@code {
+
+    [Parameter]
+    public string Username { get; set; }
+
+    [Parameter]
+    public string Password { get; set; }
+
+    [Parameter]
+    public int TransactionId { get; set; }
+
+
+    public int Userid { get; set; }
+
+    public PaymentTransactionDto TransactionDto { get; set; }
+
+    [Inject]
+    public IPaymentServices PaymentServices { get; set; }
+
+    [Inject]
+    public IUserServices userServices { get; set; }
+
+    [Inject]
+    public IJSRuntime JS { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    public double TransactionAmount { get; set; }
+
+    public DateTime TransactionTime { get; set; }
+
+    public string TransactionDescription { get; set; }
+
+
+    public string ErrorMessage { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        try
+        {
+            var Finduser = await userServices.Login(Username, Password);
+            Userid = (int)Finduser.Id;
+
+            if (Finduser != null)
+            {
+                TransactionDto = await PaymentServices.GetTransaction(Userid,TransactionId);
+
+                TransactionAmount = TransactionDto.Amount;
+                TransactionTime = TransactionDto.TransactionTime;
+                TransactionDescription = TransactionDto.Descriptions;
+            }
+
+            else
+            {
+                ErrorMessage = "Your Account Not Found !";
+            }
+        }
+
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+        }
+    }
+
+    protected async void DeleteTransaction_Click()
+    {
+        var DeleteTransaction =  await PaymentServices.DeleteTransaction(Userid, TransactionId);
+        StateHasChanged();
+
+        if(DeleteTransaction != null)
+        {
+            JS.InvokeVoidAsync("alert","Your Transaction Delete With Success !");
+            NavigationManager.NavigateTo($"/UserMainPage/{Username}/{Password}");
+        }
+        else
+        {
+            JS.InvokeVoidAsync("alert", "somthing went wrong while Delete Your Transaction");
+        }
+    }
+}
+
+
+@if (TransactionDto == null && ErrorMessage == null)
+{
+    <DisplaySpinner />
+}
+
+else if (ErrorMessage != null)
+{
+    <DisplayEror ErorMessage="@ErrorMessage"></DisplayEror>
+}
+
+else
+{
+    <div class="">
+        <div class="delete-pay-box">
+            <h2 class="text-white mb-2">
+                Delete Payment Transaction
+            </h2>
+
+            <label class="transaction-lbl">
+                Transaction Amount :
+            </label>
+
+            <input class="payment-input" type="number" @bind="@TransactionAmount" readonly />
+
+            <br />
+
+            <label class="transaction-lbl">
+                Transaction Time :
+            </label>
+
+            <input class="payment-input" type="datetime" @bind="@TransactionTime" readonly />
+
+            <br />
+
+            <label class="transaction-lbl">
+                Transaction Description :
+            </label>
+
+            <input class="payment-input" type="text" @bind="@TransactionDescription" readonly />
+
+            <br />
+            <br />
+
+            <a class="btn btn-submit" @onclick="() => DeleteTransaction_Click()">
+                Click For Delete Payment Transaction !
+            </a>
+
+        </div>
+    </div>
+}

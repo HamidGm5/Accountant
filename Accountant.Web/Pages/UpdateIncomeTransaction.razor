@@ -1,0 +1,142 @@
+﻿@page "/UpdateTransaction/{Username}/{Password}/{TransactionId:int}"
+
+@code {
+
+    [Parameter]
+    public string Username { get; set; }
+
+    [Parameter]
+    public string Password { get; set; }
+
+    [Parameter]
+    public int TransactionId { get; set; }
+
+
+    public int Userid { get; set; }
+
+    public IncomeTransactionDto TransactionDto { get; set; }
+
+    [Inject]
+    public IIncomeServices incomeServices { get; set; }
+
+    [Inject]
+    public IUserServices userServices { get; set; }
+
+    [Inject]
+    public IJSRuntime JS { get; set; }
+
+    [Inject]
+    public NavigationManager navigationManager { get; set; }
+
+    public double TransactionAmount { get; set; }
+
+    public DateTime TransactionTime { get; set; }
+
+    public string TransactionDescription { get; set; }
+
+    public string MainPageUrl { get; set; }
+
+    public string ErrorMessage { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        try
+        {
+            var Finduser = await userServices.Login(Username, Password);
+            Userid = (int)Finduser.Id;
+
+            if (Finduser != null)
+            {
+                TransactionDto = await incomeServices.GetTransaction(Userid, TransactionId);
+
+                TransactionAmount = TransactionDto.Amount;
+                TransactionTime = TransactionDto.TransactionTime;
+                TransactionDescription = TransactionDto.Descriptions;
+            }
+
+            else
+            {
+                ErrorMessage = "Your Account Not Found !";
+            }
+        }
+
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+        }
+    }
+
+    protected async void UpdateTransaction_Click()
+    {
+        TransactionDto.Id = TransactionId;
+        TransactionDto.Amount = TransactionAmount;
+        TransactionDto.TransactionTime = TransactionTime;
+        TransactionDto.Descriptions = TransactionDescription;
+
+
+        var UpdateTransaction = await incomeServices.UpdateTransaction(Userid, TransactionDto);
+        StateHasChanged();
+
+        if (UpdateTransaction != null)
+        {
+            JS.InvokeVoidAsync("alert", " Your Transaction Update Record SuccessFuly");
+            navigationManager.NavigateTo($"/UserMainPage/{Username}/{Password}");
+        }
+        else
+        {
+            JS.InvokeVoidAsync("alert", "Somthing went wrong while saving your Update Transaction !");
+        }
+    }
+}
+
+
+@if (TransactionDto == null && ErrorMessage == null)
+{
+    <DisplaySpinner />
+}
+
+else if (ErrorMessage != null)
+{
+    <DisplayEror ErorMessage="@ErrorMessage"></DisplayEror>
+}
+
+else
+{
+    <div class="">
+        <div class="update-income-box">
+            <h2 class="text-white mb-2">
+                Update Income Transaction
+            </h2>
+
+            <label class="transaction-lbl">
+                Transaction Amount :
+            </label>
+
+            <input class="income-input" type="number" @bind="@TransactionAmount" />
+
+            <br />
+
+            <label class="transaction-lbl">
+                Transaction Time :
+            </label>
+
+            <input class="income-input" type="datetime" @bind="@TransactionTime" />
+
+            <br />
+
+            <label class="transaction-lbl">
+                Transaction Description :
+            </label>
+
+            <input class="income-input" type="text" @bind="@TransactionDescription" />
+
+            <br />
+            <br />
+
+            <a class="btn btn-submit" @onclick="() => UpdateTransaction_Click()" href="@MainPageUrl">
+                Click For Update Income Transaction !
+            </a>
+
+        </div>
+    </div>
+}

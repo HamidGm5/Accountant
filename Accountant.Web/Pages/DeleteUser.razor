@@ -1,0 +1,47 @@
+﻿@page "/DeleteUser/{Username}/{Password}"
+@inherits DeleteUserBase
+
+@if (Finduser == null && ErorMessage == null)
+{
+    <DisplaySpinner />
+}
+
+else if (ErorMessage != null)
+{
+    <DisplayEror ErorMessage="@ErorMessage"></DisplayEror>
+}
+
+else
+{
+    <div class="row">
+        <div class="DeleteUser-page">
+
+            <h1>
+                Delete Your Account And All Transaction
+            </h1>
+
+            <lable class="lbl">
+                Your Username :
+            </lable>
+            <input type="text" @bind="@Username" class="input-delete" readonly />
+            <br />
+
+            <lable class="lbl">
+                Your password :
+            </lable>
+            <input type="password" @bind="@Password" class="input-delete" readonly />
+            <br />
+
+            <lable class="lbl">
+                Your Email :
+            </lable>
+            <input type="email" @bind="@Email" class="input-delete" readonly />
+            <br />
+
+               
+            <a class="btn btn-delete" @onclick = "() => DeleteUser_Click()" href="">
+                Click For Delete Your Spec ! 
+            </a>
+        </div>
+    </div>
+}

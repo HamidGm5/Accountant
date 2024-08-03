@@ -1,0 +1,45 @@
+﻿a {
+    text-decoration: none;
+    transition: ease-in-out .3s;
+}
+
+    a:hover {
+        border-radius: 18px;
+        color : black;
+    }
+
+.btn-items {
+    margin-bottom: 10px;
+    top: auto;
+    right: 0;
+    width: auto;
+    height: auto;
+    transition : ease-in-out .3s;
+}
+
+.Update-User {
+    background-color: rgb(180, 93, 23);
+    color: rgb(196, 197, 218);
+    font-weight: 800;
+    margin-left: 0;
+}
+
+.Delete-User{
+    background-color : rgb(135, 0, 0);
+    font-weight : 800;
+    color : rgb(196, 197, 218);
+    margin-right : 30px;
+}
+
+.btn-addpayment {
+    background-color: rgb(116, 0, 137, 0.89);
+    color: rgb(209, 209, 0);
+    margin-top:auto;
+}
+
+.btn-addincome {
+    background-color: rgb(209, 209, 0);
+    color: rgb(80, 0, 95, 0.89);
+    margin-left: 10px;
+    margin-top: auto;
+}

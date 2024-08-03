@@ -1,0 +1,58 @@
+﻿@page "/UpdateUser/{Username}/{Password}"
+@inherits UpdateUserBase
+
+@if (User == null && ErorMessage == null)
+{
+    <DisplaySpinner />
+}
+
+else if (ErorMessage != null)
+{
+    <DisplayEror ErorMessage="@ErorMessage"></DisplayEror>
+}
+
+else
+{
+    <div class="row">
+        <div class="UpdateUser-page">
+
+            <h1>
+                Update Your Account
+            </h1>
+
+            <lable class="lbl">
+                Your Username :
+            </lable>
+            <input type="text" @bind="@username" class="input-update" />
+            <br />
+
+            <lable class="lbl">
+                Your password :
+            </lable>
+            <input type="password" @bind="@password" class="input-update" />
+            <br />
+
+            <lable class="lbl">
+                Your Confirm password :
+            </lable>
+            <input type="password" @bind="@confirmPassword" class="input-update" />
+            <br />
+
+            <lable class="lbl">
+                Your Email :
+            </lable>
+            <input type="email" @bind="@email" class="input-update" />
+            <br />
+
+            <lable class="lbl">
+                Your Image :
+            </lable>
+            <input type="file" @bind="@imgUrl" class="choose-btn" />
+            <br />
+
+            <a class="btn btn-update" @onclick="() => UpdateUser_Click()" href="/Login">
+                Click For Update Your Spec !
+            </a>
+        </div>
+    </div>
+}

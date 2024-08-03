@@ -1,0 +1,44 @@
+﻿@page "/AddPayment/{userid:int}/{username}/{password}"
+@inherits AddPaymentTransactionBase
+
+<div class="row">
+    <div class="add-transaction-box">
+        <h2 class="text-white mb-3">
+            Add New Payment Transaction
+        </h2>
+
+        <labe class="transaction-lbl">
+            Enter Transaction Time :
+        </labe>
+
+        <input class="custom-input" type="datetime" @bind="@TransactionTime" />
+
+        <br />
+
+        <label class="transaction-lbl">
+            Enter Transaction Amount :
+        </label>
+
+        <input class="custom-input" type="number" @bind="@Amount" />
+
+        <br />
+
+        <labe class="transaction-lbl">
+            Enter Transaction Description :
+        </labe>
+
+        <input class="custom-input" type="text" @bind="@Descriptions" />
+
+        <br />
+        <br />
+
+        <a class="btn btn-submit" @onclick="() => AddPayment_Click()">
+            Click For Add New Payment Transaction !
+        </a>
+
+        @if (ErorMessage != null)
+        {
+            <DisplayEror ErorMessage="@ErorMessage" ></DisplayEror>
+        }
+    </div>
+</div>

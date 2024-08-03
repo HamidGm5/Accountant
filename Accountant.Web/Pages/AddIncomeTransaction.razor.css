@@ -1,0 +1,35 @@
+﻿.add-pay-box {
+    border: 4px solid rgb(140, 215, 55);
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.transaction-lbl {
+    color: rgb(219, 219, 219);
+    font-weight: 600;
+}
+
+.income-input {
+    width: auto;
+    border: 2px solid rgb(88, 88, 88);
+    border-radius: 10px;
+    margin: 10px 8px;
+}
+
+a {
+    text-decoration: none;
+    transition: ease-in-out .3s;
+}
+
+    a:hover {
+        border-radius: 12px;
+        background-color: rgb(219, 219, 219);
+        color: rgb(43, 189, 37);
+    }
+
+.btn-submit {
+    background-color: rgb(94, 155, 0);
+    color: rgb(219, 219, 219);
+    font-weight: 600;
+    margin: 10px auto;
+}

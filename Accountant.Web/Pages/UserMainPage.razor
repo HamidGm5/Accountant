@@ -1,0 +1,114 @@
+﻿@page "/UserMainPage/{username}/{password}"
+@inherits UserMainPageBase
+
+@if (PaymentTransactions == null && IncomeTransactions == null && ErorMessage == null)
+{
+    <DisplaySpinner />
+}
+
+else if (ErorMessage != null)
+{
+    <DisplayEror ErorMessage="@ErorMessage"></DisplayEror>
+}
+
+else
+{
+    <div class="row">
+        <div class="btn-items">
+
+            <a class="btn btn-items oi oi-pencil Update-User" href="@UpdateUserURL">
+                Update Your Spec
+            </a>
+
+            <a class="btn btn-items oi oi-delete Delete-User" href="@DeleteUserURL">
+                Delete Your Spec
+            </a>
+
+
+            <a class="btn btn-addpayment oi oi-plus" href=@AddPaymentURL>
+                Add Payment
+            </a>
+
+            <a class="btn btn-addincome oi oi-plus" href="@AddIncomeURL">
+                Add Income
+            </a>
+
+        </div>
+    </div>
+
+    @if (MonthPayment.Count > 0)
+    {
+        <div>
+            <h2 class="mt-5"> Your Payment In Month </h2>
+            <DisplayPaymentTransaction PaymentTransactions="MonthPayment" Username="@username" Password="@password"></DisplayPaymentTransaction>
+            <br />
+
+            <h2 class="fw-bolder text-warning">
+                Your Balance In This Month is : @Remaining <span class="oi oi-dollar"></span>
+            </h2>
+        </div>
+    }
+
+    <br />
+    <br />
+
+    @if (MonthIncome.Count > 0)
+    {
+        <h2> Your Income In Month </h2>
+        <DisplayIncomeTransaction IncomeTransactions="MonthIncome" Username="@username" Password="@password"></DisplayIncomeTransaction>
+
+
+    }
+
+    else if (MonthIncome.Count == 0)
+    {
+        <h1 class="text-danger">
+            You Are Noth Record Income Transaction In This Month
+        </h1>
+    }
+
+    else if (MonthPayment.Count == 0)
+    {
+        <h1 class="text-danger">
+            You Are Noth Record Payment Transaction In This Month
+        </h1>
+    }
+
+    else
+    {
+        <h1 class="text-danger">
+            You Are Noth Record Transaction In This Month
+        </h1>
+    }
+
+    <br />
+    <br />
+    <br />
+
+    @if (PaymentTransactions.Count > 0)
+    {
+        <h2> PaymentTransactions </h2>
+        <DisplayPaymentTransaction PaymentTransactions="PaymentTransactions" Username="@username" Password="@password"></DisplayPaymentTransaction>
+    }
+    <br />
+    <br />
+    @if (IncomeTransactions.Count > 0)
+    {
+        <h2> IncomeTransactions </h2>
+        <DisplayIncomeTransaction IncomeTransactions="IncomeTransactions" Username="@username" Password="@password"></DisplayIncomeTransaction>
+    }
+
+    @if (IncomeTransactions.Count == 0 && PaymentTransactions.Count == 0)
+    {
+        <h2 class="text-danger text-capitalize "> You are not record any transaction ! </h2>
+    }
+
+    else if (PaymentTransactions.Count == 0 && IncomeTransactions.Count > 0)
+    {
+        <h2 class="text-danger"> You are not record Payment transaction ! </h2>
+    }
+    else if (PaymentTransactions.Count > 0 && IncomeTransactions.Count == 0)
+    {
+        <h2 class="text-danger"> You are not record Income transaction ! </h2>
+    }
+}

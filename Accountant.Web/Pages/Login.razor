@@ -1,0 +1,38 @@
+﻿@page "/Login"
+@inherits LoginBase
+
+<div class="row Login-box">
+    <h3 class="text-white fw-bolder m-4"><b>Login</b></h3>
+
+    <div>
+        <label>
+            <b>
+                Enter Your Username :
+            </b>
+        </label>
+
+        <input @bind="@Username" type="text" class="text-box" />
+
+        <br />
+
+        <label>
+            <b>
+                Enter Your Password :
+            </b>
+        </label>
+
+        <input @bind="@Password" type="password" class="text-box" />
+
+    </div>
+    <div class="m-4">
+        <a href="/UserMainPage/@Username/@Password">
+            <a @onclick="() => Login_Click()" class="btn btn-login fw-bolder p-2" type="submit"> Click For Login </a>
+        </a>
+    </div>
+
+    <div class="signup-notic text-capitalize">
+        <h4>if not signup to our site click on <a href="/SignUp" style="color:rgb(223, 164, 0); text-decoration : none;"><b>SignUp</b></a></h4>
+    </div>
+
+</div>
+

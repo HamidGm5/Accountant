@@ -1,0 +1,42 @@
+﻿h1{
+    font-weight : bolder;
+    color : rgb(255, 255, 255);
+    margin-bottom : 20px;
+}
+
+.DeleteUser-page {
+    border: 4px solid rgb(227, 0, 67);
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.input-delete {
+    margin: 5px 20px 5px 15px;
+    border: 2px solid rgb(152, 151, 151);
+    border-radius: 25px;
+    width: auto;
+    margin-bottom : 10px;
+}
+
+.lbl {
+    font-family: 'Arial Rounded MT';
+    font-weight: bold;
+}
+
+.btn-delete {
+    background-color: rgb(212, 0, 0);
+    color: rgb(255, 255, 255);
+    font-weight: 900;
+    margin: auto;
+    transition: ease-in-out .3s;
+    margin-top : 20px;
+    margin-bottom : 20px;
+}
+
+
+    a:hover {
+        background-color : rgb(222, 0, 0);
+        color : rgb(0, 0, 0);
+        font-family : 'Harlow Solid'
+        font-weight : 900;
+    }

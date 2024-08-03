@@ -1,0 +1,66 @@
+﻿@page "/SignUp"
+@inherits SignUpBase
+
+
+<div class="row Sign-box">
+    <h3 class="text-white fw-bolder m-4"><b>SignUp</b></h3>
+
+    <br />
+    <br />
+
+    <div>
+        <label class="text-white">
+            <b>
+                Enter Your UserName :
+            </b>
+        </label>
+
+        <input @bind="@Username" type="text" class="text-box" />
+
+        <br />
+
+        <label>
+            <b>
+                Enter Your Password :
+            </b>
+        </label>
+
+        <input @bind="@Password" type="password" class="text-box" />
+
+        <br />
+
+        <label>
+            <b>
+                Enter Your Confirm Password :
+            </b>
+        </label>
+
+        <input @bind="@ConfirmPassword" type="password" class="text-box" />
+
+        <br />
+
+        <label>
+            <b>
+                Enter Your Email :
+            </b>
+        </label>
+
+        <input @bind="@Email" type="email" class="text-box" />
+
+        <br />
+        <br />
+        <input @bind="@ImageURL" type="file" class="choose-btn" />
+
+        <br />
+        <br />
+        <br />
+    </div>
+    <div class="m-4">
+        <a>
+            <a class="btn fw-bolder p-2" @onclick="() => AddNewUser_Click() " type="submit"> Click For SignUp </a>
+        </a>
+    </div>
+
+
+</div>
+

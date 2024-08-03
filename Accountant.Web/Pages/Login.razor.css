@@ -1,0 +1,42 @@
+﻿.Login-box {
+    margin: auto;
+    border: 4px solid rgb(255, 152, 152);
+    width: auto;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.text-box {
+    margin: 5px 20px 5px 15px;
+    border: 2px solid rgb(152, 151, 151);
+    border-radius: 25px;
+    width: auto;
+}
+
+
+label {
+    margin-bottom: 20px;
+    font-family: 'Arial Rounded MT';
+    color: white;
+}
+
+.choose-btn {
+    background-color: rgb(0, 210, 236);
+    border: 2px solid rgb(0, 210, 236);
+    border-radius: 7px;
+    margin: 50px auto 30px auto;
+    color: rgb(103, 0, 121)
+}
+
+.btn-login {
+    background-color: yellow;
+    color: purple;
+    font-weight: 700;
+    margin: auto;
+    transition: ease-in-out .3s;
+}
+
+    .btn-login:hover {
+        background-color: rgb(103, 0, 121);
+        color: rgb(255, 216, 0);
+    }

@@ -1,4 +1,5 @@
-﻿using Accountant.API.Entities;
+﻿using Accountant.API.Business;
+using Accountant.API.Entities;
 using Accountant.API.Repository.Interfaces;
 using Accountant.Model.Dto;
 using AutoMapper;
@@ -13,15 +14,25 @@ namespace Accountant.API.Controllers
     {
         private readonly ILoanRepository _repository;
         private readonly IUserRepository _userRepository;
+        private readonly IinstallmentRepository _installmentRepository;
+        private readonly InstallmentBusiness _installmentBusiness;
+        private readonly LoanBusiness _business;
         private readonly IMapper _mapper;
 
         public LoanController(ILoanRepository repository,
                               IMapper mapper,
-                              IUserRepository userRepository)
+                              IUserRepository userRepository,
+                              IinstallmentRepository installmentRepository,
+                              InstallmentBusiness installmentBusiness,
+                              LoanBusiness business
+                               )
         {
             _repository = repository;
             _mapper = mapper;
             _userRepository = userRepository;
+            _installmentRepository = installmentRepository;
+            _installmentBusiness = installmentBusiness;
+            _business = business;
         }
 
         [HttpGet(Name = "GetAllLoans")]
@@ -117,6 +128,11 @@ namespace Accountant.API.Controllers
                         return NotFound();
                     }
 
+                    LoanMap.RecursiveAmount = await _business.RecursiveAmount(newLoan);
+                    var Installments = await _installmentBusiness.AddInstallments(newLoan);
+                    LoanMap.Intallments = Installments;
+                    LoanMap.EndTime = Installments.LastOrDefault().PayTime;
+
                     var addLoan = await _repository.AddLoan(LoanMap);
 
                     if (addLoan)
@@ -154,25 +170,32 @@ namespace Accountant.API.Controllers
                 }
                 else
                 {
-                    if (await _repository.ExistLoan(LoanID))
-                    {
-                        var LoanMap = _mapper.Map<Loan>(newLoan);
-                        LoanMap.ID = LoanID;
-                        bool Response = await _repository.UpdateLoan(LoanMap);
+                    var LoanMap = _mapper.Map<Loan>(newLoan);
 
-                        if (!Response)
-                        {
-                            return StatusCode(500);
-                        }
-                        else
-                        {
-                            return Ok("Successfully");
-                        }
-                    }
-                    else
+                    var Installments = await _installmentBusiness.UpdateInstallment(newLoan);
+                    await _installmentRepository.RemoveInstallments(LoanID);    // must remove installments because in Update For Loan the previous installment been remaine
+
+                    LoanMap.Intallments = Installments;
+
+                    if (Installments == null)
                     {
                         return NotFound();
                     }
+
+                    LoanMap.EndTime = Installments.LastOrDefault().PayTime;
+
+                    LoanMap.ID = LoanID;
+                    bool Response = await _repository.UpdateLoan(LoanMap);
+
+                    if (!Response)
+                    {
+                        return StatusCode(500);
+                    }
+                    else
+                    {
+                        return Ok("Successfully");
+                    }
+
                 }
             }
             catch
@@ -192,7 +215,6 @@ namespace Accountant.API.Controllers
                 if (ModelState.IsValid)
                 {
                     var DeleteLoan = await _repository.DeleteLoan(LoanID, UserID);
-
                     if (DeleteLoan)
                         return Ok("Successfully");
                     else

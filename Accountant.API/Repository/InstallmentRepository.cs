@@ -13,16 +13,23 @@ namespace Accountant.API.Repository
             _context = context;
         }
 
-        public async Task<bool> AddNewInstallment(Installment installment)      // controller should give loan parameter
+        public async Task<bool> AddNewInstallments(ICollection<Installment> installments)
         {
-            var AddInstallment = await _context.Installments.AddAsync(installment);
-            await Save();
-            return AddInstallment != null;
+            try
+            {
+                _context.Installments.AddRange(installments);
+                _context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public async Task<Installment> GetInstallmentByID(int InstallmentID , int LoanID)
+        public async Task<Installment> GetInstallmentByID(int InstallmentID, int LoanID)
         {
-            var Installment = await _context.Installments.Where(i => i.ID == InstallmentID && 
+            var Installment = await _context.Installments.Where(i => i.ID == InstallmentID &&
                                                     i.loan.ID == LoanID).FirstOrDefaultAsync();
             return Installment;
         }
@@ -59,12 +66,12 @@ namespace Accountant.API.Repository
             return saved > 0 ? true : false;
         }
 
-        public async Task<bool> UpdateInstallment(Installment installment)
+        public async Task<bool> UpdateInstallment(ICollection<Installment> installments)
         {
-            //var FindInstallment = await _context.Installments.FindAsync(installment.ID);
-            var Update = _context.Installments.Update(installment);
+            _context.Installments.UpdateRange(installments);
             return await Save();
 
+            //var FindInstallment = await _context.Installments.FindAsync(installment.ID);
             //if (FindInstallment != null)
             //{
             //    FindInstallment.Amount = installment.Amount;
@@ -76,6 +83,17 @@ namespace Accountant.API.Repository
             //return false;
         }
 
+        public async Task<bool> UpdatePayInstallment(int installmentID)
+        {
+            var FindInstallment = await _context.Installments.FindAsync(installmentID);
+            if (FindInstallment != null)
+            {
 
+                FindInstallment.PayOrNo = true;
+                _context.Installments.Update(FindInstallment);
+                return await Save();
+            }
+            return false;
+        }
     }
 }

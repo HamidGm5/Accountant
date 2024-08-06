@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Accountant.API.Migrations
 {
     /// <inheritdoc />
-    public partial class AccountantMigration : Migration
+    public partial class Accountant : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -62,16 +62,17 @@ namespace Accountant.API.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    userId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Loans", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Loans_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Loans_Users_userId",
+                        column: x => x.userId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -129,9 +130,9 @@ namespace Accountant.API.Migrations
                 column: "loanID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Loans_UserId",
+                name: "IX_Loans_userId",
                 table: "Loans",
-                column: "UserId");
+                column: "userId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PaymentTransactions_UserId",

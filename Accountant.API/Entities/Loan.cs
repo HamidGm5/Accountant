@@ -1,7 +1,11 @@
-﻿namespace Accountant.API.Entities
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Accountant.API.Entities
 {
     public class Loan
     {
+        [Key]
         public int ID { get; set; }
         public double LoanAmount { get; set; }
         public double RecursiveAmount { get; set; }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Accountant.API.Migrations
 {
     [DbContext(typeof(AccountantContext))]
-    [Migration("20240803070544_AccountantMigration")]
-    partial class AccountantMigration
+    [Migration("20240805171144_Accountant")]
+    partial class Accountant
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -109,12 +109,12 @@ namespace Accountant.API.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("userId")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("userId");
 
                     b.ToTable("Loans");
                 });
@@ -198,9 +198,13 @@ namespace Accountant.API.Migrations
 
             modelBuilder.Entity("Accountant.API.Entities.Loan", b =>
                 {
-                    b.HasOne("Accountant.API.Entities.User", null)
+                    b.HasOne("Accountant.API.Entities.User", "user")
                         .WithMany("Loans")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("Accountant.API.Entities.PaymentTransaction", b =>

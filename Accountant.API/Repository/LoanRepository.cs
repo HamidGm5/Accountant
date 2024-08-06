@@ -16,8 +16,7 @@ namespace Accountant.API.Repository
         public async Task<bool> AddLoan(Loan loan)
         {
             var addNewLoan = await _context.AddAsync(loan);
-            await Save();
-            return addNewLoan != null;
+            return await Save();
         }
 
         public async Task<bool> DeleteAllLoan(int userID)
@@ -94,25 +93,8 @@ namespace Accountant.API.Repository
 
         public async Task<bool> UpdateLoan(Loan loan)
         {
-            var FindLoan = await _context.Loans.FindAsync(loan.ID);
-            if (FindLoan != null) 
-            {
-                FindLoan.Percentage = loan.Percentage;
-                FindLoan.StartTime = loan.StartTime;
-                FindLoan.EndTime = loan.EndTime;
-                FindLoan.PeriodPerMonth = loan.PeriodPerMonth;
-                FindLoan.Description = loan.Description;
-                FindLoan.Intallments = loan.Intallments;
-                FindLoan.LoanAmount = loan.LoanAmount;
-                FindLoan.RecursiveAmount = loan.RecursiveAmount;
-                
-                return await Save();
-
-            }
-            else
-            {
-                return false;
-            }
+            _context.Loans.Update(loan);
+            return await Save();
         }
     }
 }

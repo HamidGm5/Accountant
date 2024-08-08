@@ -3,7 +3,7 @@ using Accountant.Web.Services.Contract;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Accountant.Web.Pages
+namespace Accountant.Web.Pages.UserPages
 {
     public class SignUpBase : ComponentBase
     {

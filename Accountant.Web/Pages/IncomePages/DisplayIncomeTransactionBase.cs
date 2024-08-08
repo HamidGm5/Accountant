@@ -3,7 +3,7 @@ using Accountant.Web.Services.Contract;
 using Microsoft.AspNetCore.Components;
 using System.Transactions;
 
-namespace Accountant.Web.Pages
+namespace Accountant.Web.Pages.IncomePages
 {
     public class DisplayIncomeTransactionBase : ComponentBase
     {

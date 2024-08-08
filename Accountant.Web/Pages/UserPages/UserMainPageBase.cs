@@ -4,7 +4,7 @@ using Accountant.Web.Services.Contract;
 using Microsoft.AspNetCore.Components;
 using System.Collections.ObjectModel;
 
-namespace Accountant.Web.Pages
+namespace Accountant.Web.Pages.UserPages
 {
     public class UserMainPageBase : ComponentBase
     {

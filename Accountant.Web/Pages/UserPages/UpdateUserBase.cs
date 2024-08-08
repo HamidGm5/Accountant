@@ -2,7 +2,7 @@
 using Accountant.Web.Services.Contract;
 using Microsoft.AspNetCore.Components;
 
-namespace Accountant.Web.Pages
+namespace Accountant.Web.Pages.UserPages
 {
     public class UpdateUserBase : ComponentBase
     {

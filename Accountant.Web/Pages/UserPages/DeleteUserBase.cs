@@ -2,7 +2,7 @@
 using Accountant.Web.Services.Contract;
 using Microsoft.AspNetCore.Components;
 
-namespace Accountant.Web.Pages
+namespace Accountant.Web.Pages.UserPages
 {
     public class DeleteUserBase : ComponentBase
     {
@@ -32,7 +32,7 @@ namespace Accountant.Web.Pages
         {
             try
             {
-                 Finduser = await UserServices.Login(Username, Password);
+                Finduser = await UserServices.Login(Username, Password);
 
                 if (Finduser != null)
                 {

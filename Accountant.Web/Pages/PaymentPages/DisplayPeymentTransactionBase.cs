@@ -1,7 +1,7 @@
 ﻿using Accountant.Model.Dto;
 using Microsoft.AspNetCore.Components;
 
-namespace Accountant.Web.Pages
+namespace Accountant.Web.Pages.PaymentPages
 {
     public class DisplayPeymentTransactionBase : ComponentBase
     {

@@ -4,7 +4,7 @@ using Accountant.Web.Services.Contract;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Accountant.Web.Pages
+namespace Accountant.Web.Pages.IncomePages
 {
     public class AddIncomeTransactionBase : ComponentBase
     {
@@ -24,7 +24,7 @@ namespace Accountant.Web.Pages
         public IUserServices UserServices { get; set; }
 
         [Inject]
-        public IJSRuntime JS{ get; set; }
+        public IJSRuntime JS { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -55,12 +55,12 @@ namespace Accountant.Web.Pages
                     if (addtransaction != null)
                     {
                         JS.InvokeVoidAsync("alert", "Your Transaction Add Compeletely !");
-                        NavigationManager.NavigateTo ($"/UserMainPage/{username}/{password}");
+                        NavigationManager.NavigateTo($"/UserMainPage/{username}/{password}");
                     }
 
                     else
                     {
-                        JS.InvokeVoidAsync("alert","Your Transaction Isn't Complete ! ");
+                        JS.InvokeVoidAsync("alert", "Your Transaction Isn't Complete ! ");
                     }
                 }
 

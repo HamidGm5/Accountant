@@ -25,6 +25,7 @@ namespace Accountant.Web.Pages.LoanPages
         [Inject]
         public NavigationManager navigation { get; set; }
 
+        public string RecursiveAmount { get; set; }
         public LoanDto Loan { get; set; }
         public string ErrorMessage { get; set; }
 
@@ -33,6 +34,7 @@ namespace Accountant.Web.Pages.LoanPages
             try
             {
                 Loan = await services.GetLoanByLoanID(UserID, LoanID);
+                RecursiveAmount = Loan.RecursiveAmount.ToString("00.00");
             }
             catch (Exception ex)
             {

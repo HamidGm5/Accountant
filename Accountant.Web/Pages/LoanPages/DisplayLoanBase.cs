@@ -51,6 +51,7 @@ namespace Accountant.Web.Pages.LoanPages
                 Percentage = Loan.Percentage;
 
                 DeleteURL = $"/DeleteLoan/{UserID}/{Username}/{Password}/{Loan.ID}";
+                UpdateURL = $"/UpdateLoan/{UserID}/{Username}/{Password}/{Loan.ID}";
             }
             catch (Exception ex)
             {

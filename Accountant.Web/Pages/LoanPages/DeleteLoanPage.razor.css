@@ -1,1 +1,54 @@
-﻿
+﻿.content {
+    margin: 1% 15% 2% 15%;
+
+}
+
+.delete-box {
+    border: 8px solid rgb(126, 0, 0);
+    text-align: justify;
+    border-radius: 30px;
+    padding-bottom:8%;
+}
+
+.title {
+    padding-bottom: 40px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+label {
+    padding-left: 30%;
+    padding-right: 6%;
+    padding-top: 8px;
+    font-weight: 800;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+}
+
+input {
+    width: 20%;
+    border-radius: 12px;
+    font-weight: 800;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 10px;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+}
+
+.delete-btn {
+    border-radius: 10px;
+    width: 2%;
+    background-color: red;
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px 10px 20px;
+    margin: 0 40% 0 40%;
+    font-size: 1.35rem;
+    transition: all .4s;
+}
+
+    .delete-btn:hover {
+        border-radius: 15px;
+        background-color: rgb(164, 0, 0);
+        color: black;
+    }

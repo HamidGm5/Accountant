@@ -108,13 +108,13 @@ namespace Accountant.Web.Services
             }
         }
 
-        public async Task<bool> UpdateLoan(LoanDto Loan)
+        public async Task<bool> UpdateLoan(int LoanID, LoanDto Loan)
         {
             try
             {
                 var Serilize = JsonConvert.SerializeObject(Loan);
                 var Content = new StringContent(Serilize, Encoding.UTF8, "application/json-patch+json");
-                var Response = await _client.PutAsync("api/Loan", Content);
+                var Response = await _client.PutAsync($"api/Loan/{LoanID}", Content);
 
                 return Response.IsSuccessStatusCode;
             }

@@ -35,7 +35,7 @@ namespace Accountant.Web.Pages.LoanPages
             {
                 Loans = await services.GetUserLoan(UserID);
                 AddNewLoanURL = $"/AddNewLoan/{UserID}/{Username}/{Password}";
-
+                
             }
             catch (Exception ex)
             {

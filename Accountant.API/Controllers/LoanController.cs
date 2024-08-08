@@ -183,7 +183,7 @@ namespace Accountant.API.Controllers
                     }
 
                     LoanMap.EndTime = Installments.LastOrDefault().PayTime;
-
+                    LoanMap.RecursiveAmount = await _business.RecursiveAmount(newLoan);
                     LoanMap.ID = LoanID;
                     bool Response = await _repository.UpdateLoan(LoanMap);
 

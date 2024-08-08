@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Accountant.API.Migrations
 {
     [DbContext(typeof(AccountantContext))]
-    [Migration("20240805171144_Accountant")]
-    partial class Accountant
+    [Migration("20240808065722_Accontant")]
+    partial class Accontant
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,7 +88,6 @@ namespace Accountant.API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndTime")

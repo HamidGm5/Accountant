@@ -72,9 +72,9 @@ namespace Accountant.Web.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return default(UserDto);
+                        return null;
                     }
-                    return await response.Content.ReadFromJsonAsync<UserDto>();     // Exception (Ok now)
+                    return await response.Content.ReadFromJsonAsync<UserDto>();
                 }
 
                 else

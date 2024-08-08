@@ -1,0 +1,40 @@
+﻿<title>Delete Loan</title>
+@page "/DeleteLoan/{UserID:int}/{Username}/{Password}/{LoanID:int}"
+@inherits DeleteLoanBase
+
+@if (Loan == null && ErrorMessage == null)
+{
+    <DisplaySpinner />
+}
+else if (ErrorMessage != null)
+{
+    <DisplayEror ErorMessage="@ErrorMessage"> </DisplayEror>
+}
+else
+{
+    <div class="content">
+        <div class="delete-box">
+            <label> Loan Amount : </label>
+            <input type="number" readonly @bind="Loan.LoanAmount" />
+            <br />
+            <label> Recursive Amount : </label>
+            <input type="number" readonly @bind="Loan.RecursiveAmount" />
+            <br />
+            <label> Period per month : </label>
+            <input type="number" readonly @bind="Loan.PeriodPerMonth" />
+            <br />
+            <label> Percentage : </label>
+            <input type="number" readonly @bind="Loan.Percentage" />
+            <br />
+            <label> StartTime : </label>
+            <input type="date" readonly @bind="Loan.StartTime" />
+            <br />
+            <label> Description : </label>
+            <input type="text" readonly @bind="Loan.Description" />
+
+            <br />
+            <br />
+            <a @onclick="() => DeleteLoan_Click()" class="btn-delete" > Delete Loan </a>
+        </div>
+    </div>
+}

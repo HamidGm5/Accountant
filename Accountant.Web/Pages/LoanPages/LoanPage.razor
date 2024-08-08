@@ -1,0 +1,43 @@
+﻿@page "/Loans/{UserID:int}/{Username}/{Password}"
+
+@inherits LoanPageBase
+
+@if (ErrorMessage == null && Loans == null)
+{
+    <DisplaySpinner />
+}
+else if (ErrorMessage != null)
+{
+    <DisplayEror ErorMessage="@ErrorMessage"></DisplayEror>
+}
+else
+{
+    <div class="nav nav-btn">
+        <a class="add-loan btn" href="@AddNewLoanURL">
+            Add New Loan
+        </a>
+
+        <a class="delete-loans btn" @onclick="() => DeleteAllLoans_Click()">
+            Delete All Lones
+        </a>
+
+        <h2 class="nav-title">
+            Loans
+        </h2>
+    </div>
+
+    <div class="content">
+        @if (Loans.Count > 0)
+        {
+            @foreach (var item in Loans)
+            {
+                <DisplayLoan Loan="item" UserID="@UserID" Username="@Username" Password="@Password"></DisplayLoan>
+            }
+
+        }
+        else
+        {
+            <h2 class="text-danger align-content-center ">you not have any Loan record !</h2>
+        }
+    </div>
+}

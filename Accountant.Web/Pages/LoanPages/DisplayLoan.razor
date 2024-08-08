@@ -1,0 +1,60 @@
+﻿@inherits DisplayLoanBase
+
+@if (InstallmentCount == 0 && LastPayTime == "" && LoanAmount == 0 && RecursiveAmount == "" && Percentage == 0)
+{
+}
+else
+{
+    <div class="Content">
+        <div class="LoanBox" onclick="@GetToInstallments">
+
+            <h3>
+                Orginal Amount :
+            </h3>
+            <h4 class="Loan-Amount">
+                @LoanAmount
+            </h4>
+
+
+            <h3>
+                Recursive Amount :
+            </h3>
+            <h4 class="Recursive-Amount">
+                @RecursiveAmount
+            </h4>
+
+            <br />
+            <br />
+
+            <h3>
+                Loan Count :
+            </h3>
+            <h4>
+                @InstallmentCount
+            </h4>
+
+            <h3>
+                Last PayTime :
+            </h3>
+            <h4>
+                @LastPayTime
+            </h4>
+
+
+            <br />
+            <br />
+            <h3>
+                Percentage :
+            </h3>
+            <h4>
+                @Percentage%
+            </h4>
+        </div>
+        <a class="update-loan btn" href="@UpdateURL">
+            Update
+        </a>
+        <a class="delete-loan btn" href="@DeleteURL">
+            Delete
+        </a>
+    </div>
+}

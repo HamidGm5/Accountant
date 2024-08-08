@@ -1,14 +1,14 @@
 ﻿@page "/UserMainPage/{username}/{password}"
 @inherits UserMainPageBase
 
-@if (PaymentTransactions == null && IncomeTransactions == null && ErorMessage == null)
+@if (PaymentTransactions == null && IncomeTransactions == null && ErrorMessage == null)
 {
     <DisplaySpinner />
 }
 
-else if (ErorMessage != null)
+else if (ErrorMessage != null)
 {
-    <DisplayEror ErorMessage="@ErorMessage"></DisplayEror>
+    <DisplayEror ErorMessage="@ErrorMessage"></DisplayEror>
 }
 
 else
@@ -24,13 +24,16 @@ else
                 Delete Your Spec
             </a>
 
-
-            <a class="btn btn-addpayment oi oi-plus" href=@AddPaymentURL>
+            <a class="btn btn-addpayment oi oi-minus" href=@AddPaymentURL>
                 Add Payment
             </a>
 
             <a class="btn btn-addincome oi oi-plus" href="@AddIncomeURL">
                 Add Income
+            </a>
+
+            <a class="btn-Loan btn oi oi-inbox" href="@LoanURL">
+                Loan
             </a>
 
         </div>

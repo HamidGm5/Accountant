@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Accountant.API.Migrations
 {
     /// <inheritdoc />
-    public partial class Accountant : Migration
+    public partial class Accontant : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,7 +59,7 @@ namespace Accountant.API.Migrations
                     RecursiveAmount = table.Column<double>(type: "float", nullable: false),
                     PeriodPerMonth = table.Column<int>(type: "int", nullable: false),
                     Percentage = table.Column<float>(type: "real", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     userId = table.Column<int>(type: "int", nullable: false)

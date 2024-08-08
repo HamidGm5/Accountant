@@ -43,7 +43,7 @@ namespace Accountant.Web.Pages
                             ImgURL = ImageURL
                         };
 
-                        if (UserServices.SignUp(NewUser) != null)
+                        if (await UserServices.SignUp(NewUser) != null)
                         {
                             await JS.InvokeAsync<UserDto>("alert", "You Signup With success ! ");
                             StateHasChanged();
@@ -71,6 +71,8 @@ namespace Accountant.Web.Pages
 
             catch (Exception ex)
             {
+                JS.InvokeVoidAsync("alert", "Somthing went wrong while signup you maybe your username taken before ! ");
+
                 ErorMessage = ex.Message;
             }
         }

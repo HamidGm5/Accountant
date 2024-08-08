@@ -34,7 +34,7 @@ namespace Accountant.Web.Pages
         public DateTime TransactionTime { get; set; } = DateTime.Now;
         public string? Descriptions { get; set; }
 
-        public string ErorMessage { get; set; }
+        public string ErrorMessage { get; set; }
 
         public async Task AddIncome_Click()
         {
@@ -66,13 +66,13 @@ namespace Accountant.Web.Pages
 
                 else
                 {
-                    ErorMessage = " Please fill Amount and Date  !";
+                    ErrorMessage = " Please fill Amount and Date  !";
                 }
             }
 
             catch (Exception ex)
             {
-                ErorMessage = ex.Message;
+                ErrorMessage = ex.Message;
             }
         }
     }// Class

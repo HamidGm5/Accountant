@@ -29,6 +29,13 @@ h4 {
     margin-left: 8px;
 }
 
+.near-pay {
+    display: inline;
+    margin-left: 8px;
+    color: rgb(196, 0, 0);
+    font-weight: 600;
+}
+
 .btns {
     margin-left: 42%;
     margin-right: 42%;
@@ -63,4 +70,8 @@ h4 {
 
 .delete-loan, .update-loan {
     margin-bottom: 8px;
+}
+
+.remain {
+    color: rgb(204, 120, 120);
 }

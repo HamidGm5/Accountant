@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Accountant.Model\Accountant.Model.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\InstallmentPages\" />
-  </ItemGroup>
-
 </Project>

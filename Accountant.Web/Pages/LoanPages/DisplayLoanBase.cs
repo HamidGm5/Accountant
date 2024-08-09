@@ -25,11 +25,14 @@ namespace Accountant.Web.Pages.LoanPages
         public string RecursiveAmount { get; set; } = "";
         public double LoanAmount { get; set; } = 0;
         public int InstallmentCount { get; set; } = 0;
-        public string LastPayTime { get; set; } = "";
+        public DateTime LastPayTime { get; set; } = DateTime.MinValue;
         public double Percentage { get; set; } = 0;
+        public double Remain { get; set; }
+        public bool NearToPay { get; set; }
 
         public string DeleteURL { get; set; }
         public string UpdateURL { get; set; }
+        public string InstallmentsURL { get; set; }
 
         public string ErrorMessage { get; set; }
         protected override async Task OnParametersSetAsync()
@@ -41,10 +44,21 @@ namespace Accountant.Web.Pages.LoanPages
                 {
                     if (!item.PayOrNo)
                     {
-                        LastPayTime = item.PayTime.ToString("MM/dd/yy");
+                        LastPayTime = item.PayTime;
                         break;
                     }
                 }
+
+                foreach (var item in Installments)
+                {
+                    if (item.PayOrNo)
+                    {
+                        Remain += item.Amount;
+                    }
+                }
+
+                Remain = (Loan.RecursiveAmount - Remain);
+
                 LoanAmount = Loan.LoanAmount;
                 RecursiveAmount = Loan.RecursiveAmount.ToString("00.00");
                 InstallmentCount = Installments.Count;
@@ -52,6 +66,10 @@ namespace Accountant.Web.Pages.LoanPages
 
                 DeleteURL = $"/DeleteLoan/{UserID}/{Username}/{Password}/{Loan.ID}";
                 UpdateURL = $"/UpdateLoan/{UserID}/{Username}/{Password}/{Loan.ID}";
+                InstallmentsURL = $"/InstallmentsPage/{UserID}/{Username}/{Password}/{Loan.ID}";
+
+                NearToPay = (LastPayTime - DateTime.Now).Days < 7;  // this is for if you have less than week the text of last pay time going to red !
+
             }
             catch (Exception ex)
             {
@@ -61,7 +79,7 @@ namespace Accountant.Web.Pages.LoanPages
 
         public void GetToInstallments()
         {
-            navigate.NavigateTo("/");
+            navigate.NavigateTo(InstallmentsURL);
         }
     }
 }

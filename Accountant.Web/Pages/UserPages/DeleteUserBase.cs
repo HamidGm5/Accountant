@@ -13,7 +13,7 @@ namespace Accountant.Web.Pages.UserPages
         public string Password { get; set; }
 
         public string Email { get; set; }
-        public int userid { get; set; }
+        public int userid { get; set; } = 0;
 
         public UserDto Finduser { get; set; }
 
@@ -27,7 +27,8 @@ namespace Accountant.Web.Pages.UserPages
 
         [Inject]
         public IIncomeServices IncomeServices { get; set; }
-
+        [Inject]
+        public ILoanServices LoanServices { get; set; }
         protected override async Task OnInitializedAsync()
         {
             try
@@ -47,18 +48,19 @@ namespace Accountant.Web.Pages.UserPages
             }
         }
 
-        protected void DeleteUser_Click()
+        protected async void DeleteUser_Click()
         {
-            if (userid != null)
+            if (userid != 0)
             {
-                PaymentServices.DeleteTransactions(userid);
-                IncomeServices.DeleteTransactions(userid);
-                UserServices.DeleteUser(userid);
+                await PaymentServices.DeleteTransactions(userid);
+                await IncomeServices.DeleteTransactions(userid);
+                await LoanServices.DeleteLoans(userid);
+                await UserServices.DeleteUser(userid);
             }
 
             else
             {
-                ErorMessage = "Your Specs Not Found ! ";
+                ErorMessage = "Somthing went wrong ! ";
             }
         }
 

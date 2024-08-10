@@ -19,6 +19,8 @@ namespace Accountant.Web.Pages.LoanPages
         [Inject]
         public IJSRuntime js { get; set; }
         [Inject]
+        public IIncomeServices incomeServices { get; set; }
+        [Inject]
         public NavigationManager navigate { get; set; }
 
         public double Amount { get; set; }
@@ -45,8 +47,18 @@ namespace Accountant.Web.Pages.LoanPages
                         StartTime = StartTime
                     };
 
+                    AddTransactionsStandardDto transaction = new AddTransactionsStandardDto()
+                    {
+                        Amount = Amount,
+                        Descriptions = "Take loan ",
+                        TransactionTime = DateTime.Now,
+                        Userid = UserID
+                    };
+
+                    var TransactionResponse = await incomeServices.AddTransaction(transaction);
                     var Response = await loanServices.AddNewLoan(newLoan);
-                    if (Response)
+                    
+                    if (Response && TransactionResponse != null)
                     {
                         await js.InvokeVoidAsync("alert", "Your loan add successfully");
                         navigate.NavigateTo($"/Loans/{UserID}/{Username}/{Password}");

@@ -48,24 +48,24 @@ namespace Accountant.Web.Pages.UserPages
                             await JS.InvokeAsync<UserDto>("alert", "You Signup With success ! ");
                             StateHasChanged();
 
-                            navigationManager.NavigateTo($"/Login");
+                            navigationManager.NavigateTo($"/UserMainPage/{Username}/{Password}",true);
                         }
 
                         else
                         {
-                            JS.InvokeVoidAsync("alert", "Somthing went wrong while signup you ! ");
+                            await JS.InvokeVoidAsync("alert", "Somthing went wrong while signup you ! ");
                         }
                     }
 
                     else
                     {
-                        JS.InvokeAsync<UserDto>("alert", " You should fill Username , Password And Email field !");
+                        await JS.InvokeAsync<UserDto>("alert", " You should fill Username , Password And Email field !");
                     }
                 }
 
                 else
                 {
-                    JS.InvokeAsync<UserDto>("alert", "Your password and confirm should be match exactly !");
+                   await JS.InvokeAsync<UserDto>("alert", "Your password and confirm should be match exactly !");
                 }
             }
 

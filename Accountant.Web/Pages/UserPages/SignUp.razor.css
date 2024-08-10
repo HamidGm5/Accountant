@@ -35,3 +35,8 @@ a {
         background-color: rgb(103, 0, 121);
         color: rgb(255, 216, 0);
     }
+
+    a:focus {
+        background-color: rgb(103, 0, 121);
+        color: rgb(255, 216, 0);
+    }

@@ -1,0 +1,36 @@
+﻿@page "/AddNewLoan/{UserID:int}/{Username}/{Password}"
+
+@inherits AddLoanPageBase
+
+<div class="content">
+
+    <h2 class="title">
+        Add New Loan 
+    </h2>
+
+    <form class="loan-box">
+        <label> loan Orginal Amount : </label>
+        <input type="number" @bind="@Amount" />
+        <br />
+
+        <label> loan duration per month : </label>
+        <input type="number" @bind="@Period" />
+        <br />
+
+        <label> loan percentage : </label>
+        <input type="number" @bind="@Percentage" />
+        <br />
+
+        <label> Date of first pay time : </label>
+        <input type="date" @bind="@StartTime" />
+
+        <br />
+        <label>Description : </label>
+        <input type="text" @bind="@Description" /> <i class="text-warning"> *optional </i>
+
+        <br />
+
+        <a class="btn btn-submit" @onclick="() => SubmitNewLoan_Click()" value="Submit"> Submit </a>
+
+    </form>
+</div>

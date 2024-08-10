@@ -2,7 +2,7 @@
 using Accountant.Web.Services.Contract;
 using Microsoft.AspNetCore.Components;
 
-namespace Accountant.Web.Pages
+namespace Accountant.Web.Pages.UserPages
 {
     public class DeleteUserBase : ComponentBase
     {
@@ -13,7 +13,7 @@ namespace Accountant.Web.Pages
         public string Password { get; set; }
 
         public string Email { get; set; }
-        public int userid { get; set; }
+        public int userid { get; set; } = 0;
 
         public UserDto Finduser { get; set; }
 
@@ -27,12 +27,13 @@ namespace Accountant.Web.Pages
 
         [Inject]
         public IIncomeServices IncomeServices { get; set; }
-
+        [Inject]
+        public ILoanServices LoanServices { get; set; }
         protected override async Task OnInitializedAsync()
         {
             try
             {
-                 Finduser = await UserServices.Login(Username, Password);
+                Finduser = await UserServices.Login(Username, Password);
 
                 if (Finduser != null)
                 {
@@ -47,18 +48,19 @@ namespace Accountant.Web.Pages
             }
         }
 
-        protected void DeleteUser_Click()
+        protected async void DeleteUser_Click()
         {
-            if (userid != null)
+            if (userid != 0)
             {
-                PaymentServices.DeleteTransactions(userid);
-                IncomeServices.DeleteTransactions(userid);
-                UserServices.DeleteUser(userid);
+                await PaymentServices.DeleteTransactions(userid);
+                await IncomeServices.DeleteTransactions(userid);
+                await LoanServices.DeleteLoans(userid);
+                await UserServices.DeleteUser(userid);
             }
 
             else
             {
-                ErorMessage = "Your Specs Not Found ! ";
+                ErorMessage = "Somthing went wrong ! ";
             }
         }
 

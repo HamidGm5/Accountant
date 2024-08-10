@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Reflection.Metadata.Ecma335;
 
-namespace Accountant.Web.Pages
+namespace Accountant.Web.Pages.UserPages
 {
     public class LoginBase : ComponentBase
     {
@@ -17,9 +17,6 @@ namespace Accountant.Web.Pages
         public IJSRuntime JS { get; set; }
 
         public int userid { get; set; }
-
-
-        public NavigationManager navigationManager { get; set; }
 
         public string ErorMessage { get; set; }
 

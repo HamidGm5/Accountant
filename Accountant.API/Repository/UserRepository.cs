@@ -33,20 +33,26 @@ namespace Accountant.API.Repository
             try
             {
                 var user = await _context.Users.Where(un => un.UserName.Trim().ToLower() == username.Trim().ToLower()).FirstOrDefaultAsync();
-
-                if (user.Password.ToLower() == password.ToLower())      // Do in Controller
+                if (user == null)
                 {
-                    return user;
+                    return null;
                 }
                 else
                 {
-                    return null;
+                    if (user.Password.ToLower() == password.ToLower())      // Do in Controller
+                    {
+                        return user;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
 
             catch (Exception)
             {
-                throw;
+                return null;
             }
         }
 
@@ -58,11 +64,11 @@ namespace Accountant.API.Repository
 
         public async Task<User> SignUp(User users)
         {
-           var newuser = await _context.AddAsync(users);
-         
-            if(newuser != null)
+            var newuser = await _context.AddAsync(users);
+
+            if (newuser != null)
             {
-                await _context.SaveChangesAsync();
+                await Save();
                 return users;
             }
             else

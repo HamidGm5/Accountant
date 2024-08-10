@@ -1,0 +1,47 @@
+﻿<title>Update Loan</title>
+@page "/UpdateLoan/{UserID:int}/{Username}/{Password}/{LoanID:int}"
+@inherits UpdateLoanBase
+
+@if(ErrorMessage == null && Loan == null)
+{
+    <DisplaySpinner />
+}
+else if(ErrorMessage != null)
+{
+    <DisplayEror ErorMessage="@ErrorMessage"></DisplayEror>
+}
+else
+{
+    <div class="content">
+
+        <h2 class="title">
+            Update Loan
+        </h2>
+
+        <form class="loan-box">
+            <label> loan Orginal Amount : </label>
+            <input type="number" @bind="@LoanAmount" />
+            <br />
+
+            <label> loan duration per month : </label>
+            <input type="number" @bind="@Period" />
+            <br />
+
+            <label> loan percentage : </label>
+            <input type="number" @bind="@Percentage" />
+            <br />
+
+            <label> Date of first pay time : </label>
+            <input type="date" @bind="@StartTime" />
+
+            <br />
+            <label>Description : </label>
+            <input type="text" @bind="@Description" />
+
+            <br />
+
+            <a class="btn btn-update" @onclick="() => UpdateLoan_Click()" value="submit" > Update Loan </a>
+
+        </form>
+    </div>
+}

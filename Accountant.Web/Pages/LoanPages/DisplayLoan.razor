@@ -1,0 +1,78 @@
+﻿@inherits DisplayLoanBase
+
+@if (InstallmentCount == 0 && LastPayTime == DateTime.MinValue && LoanAmount == 0 && RecursiveAmount == "" && Percentage == 0)
+{
+}
+else
+{
+    <div class="Content" onclick="@GetToInstallments">
+        <div class="LoanBox">
+
+            <h3>
+                Orginal Amount :
+            </h3>
+            <h4 class="Loan-Amount">
+                @LoanAmount
+            </h4>
+
+
+            <h3>
+                Recursive Amount :
+            </h3>
+            <h4 class="Recursive-Amount">
+                @RecursiveAmount
+            </h4>
+
+            <br />
+            <br />
+
+            <h3>
+                Loan Count :
+            </h3>
+            <h4>
+                @InstallmentCount
+            </h4>
+
+            <h3>
+                Last PayTime :
+            </h3>
+            @if (NearToPay)
+            {
+                <h4 class="near-pay">
+                    @LastPayTime.ToString("MM / dd /yy")
+                </h4>
+            }
+            else
+            {
+                <h4>
+                    @LastPayTime.ToString("MM / dd /yy")
+                </h4>
+            }
+
+
+            <br />
+            <br />
+            <h3>
+                Percentage :
+            </h3>
+            <h4>
+                @Percentage%
+            </h4>
+            <h3>
+                Remain of Loan :
+            </h3>
+            <h4 class="remain">
+                @Remain.ToString("00.00")
+            </h4>
+        </div>
+        <div class="btns">
+            <a class="update-loan btn" href="@UpdateURL">
+                Update
+            </a>
+            <a class="delete-loan btn" href="@DeleteURL">
+                Delete
+            </a>
+        </div>
+
+    </div>
+}

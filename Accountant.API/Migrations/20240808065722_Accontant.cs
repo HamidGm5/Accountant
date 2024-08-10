@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Accountant.API.Migrations
 {
     /// <inheritdoc />
-    public partial class Accountant : Migration
+    public partial class Accontant : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,22 +53,23 @@ namespace Accountant.API.Migrations
                 name: "Loans",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AllAmount = table.Column<double>(type: "float", nullable: false),
-                    InterestRate = table.Column<float>(type: "real", nullable: false),
+                    LoanAmount = table.Column<double>(type: "float", nullable: false),
+                    RecursiveAmount = table.Column<double>(type: "float", nullable: false),
+                    PeriodPerMonth = table.Column<int>(type: "int", nullable: false),
+                    Percentage = table.Column<float>(type: "real", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LoanPeriodPerMonth = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PayOrQueue = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    userId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Loans", x => x.Id);
+                    table.PrimaryKey("PK_Loans", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Loans_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Loans_Users_userId",
+                        column: x => x.userId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -97,24 +98,24 @@ namespace Accountant.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LoanInstallments",
+                name: "Installments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    InstallmentAmountPerMonth = table.Column<double>(type: "float", nullable: false),
+                    Amount = table.Column<double>(type: "float", nullable: false),
                     PayTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PayOrNo = table.Column<bool>(type: "bit", nullable: false),
-                    LoanId = table.Column<int>(type: "int", nullable: false)
+                    loanID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LoanInstallments", x => x.Id);
+                    table.PrimaryKey("PK_Installments", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_LoanInstallments_Loans_LoanId",
-                        column: x => x.LoanId,
+                        name: "FK_Installments_Loans_loanID",
+                        column: x => x.loanID,
                         principalTable: "Loans",
-                        principalColumn: "Id",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -124,14 +125,14 @@ namespace Accountant.API.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LoanInstallments_LoanId",
-                table: "LoanInstallments",
-                column: "LoanId");
+                name: "IX_Installments_loanID",
+                table: "Installments",
+                column: "loanID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Loans_UserId",
+                name: "IX_Loans_userId",
                 table: "Loans",
-                column: "UserId");
+                column: "userId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PaymentTransactions_UserId",
@@ -146,7 +147,7 @@ namespace Accountant.API.Migrations
                 name: "IncomeTransactions");
 
             migrationBuilder.DropTable(
-                name: "LoanInstallments");
+                name: "Installments");
 
             migrationBuilder.DropTable(
                 name: "PaymentTransactions");

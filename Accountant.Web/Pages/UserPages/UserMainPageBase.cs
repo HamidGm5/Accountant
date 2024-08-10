@@ -4,7 +4,7 @@ using Accountant.Web.Services.Contract;
 using Microsoft.AspNetCore.Components;
 using System.Collections.ObjectModel;
 
-namespace Accountant.Web.Pages
+namespace Accountant.Web.Pages.UserPages
 {
     public class UserMainPageBase : ComponentBase
     {
@@ -21,6 +21,7 @@ namespace Accountant.Web.Pages
         public IIncomeServices IncomeServices { get; set; }
         [Inject]
         public IPaymentServices PaymentServices { get; set; }
+
         public UserDto user { get; set; }
         public ICollection<PaymentTransactionDto> PaymentTransactions { get; set; }
         public ICollection<IncomeTransactionDto> IncomeTransactions { get; set; }
@@ -36,7 +37,8 @@ namespace Accountant.Web.Pages
         public string AddIncomeURL { get; set; }
         public string DeleteUserURL { get; set; }
         public string UpdateUserURL { get; set; }
-        public string ErorMessage { get; set; }
+        public string LoanURL { get; set; }
+        public string ErrorMessage { get; set; }
 
         protected async override Task OnParametersSetAsync()
         {
@@ -58,17 +60,19 @@ namespace Accountant.Web.Pages
                 AddIncomeURL = $"AddIncome/{userid}/{username}/{password}";
                 DeleteUserURL = $"DeleteUser/{username}/{password}";
                 UpdateUserURL = $"UpdateUser/{username}/{password}";
+                LoanURL = $"Loans/{userid}/{username}/{password}";
             }
 
             catch (Exception ex)
             {
-                ErorMessage = ex.Message;
+                ErrorMessage = ex.Message;
             }
         }
 
         protected async Task<ICollection<IncomeTransactionDto>> IncomeInMonth(DateTime date)
         {
-            var incomeInMonth = IncomeTransactions.Where(ic => ic.TransactionTime.Month == date.Month).OrderBy(ic => ic.TransactionTime).ToList();
+            var incomeInMonth = IncomeTransactions.Where(ic => ic.TransactionTime.Month == date.Month)
+                .OrderBy(ic => ic.TransactionTime).ToList();
             return incomeInMonth;
         }
 

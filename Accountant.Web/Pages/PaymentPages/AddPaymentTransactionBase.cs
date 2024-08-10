@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.ComponentModel;
 
-namespace Accountant.Web.Pages
+namespace Accountant.Web.Pages.PaymentPages
 {
     public class AddPaymentTransactionBase : ComponentBase
     {
@@ -41,7 +41,7 @@ namespace Accountant.Web.Pages
             try
             {
 
-                 newTransaction = new AddTransactionsStandardDto
+                newTransaction = new AddTransactionsStandardDto
                 {
                     Userid = userid,
                     Amount = Amount,
@@ -51,9 +51,9 @@ namespace Accountant.Web.Pages
 
                 if (newTransaction != null)
                 {
-                   var addpayment =  await PaymentServices.AddTransaction(newTransaction);
-                
-                    if(addpayment != null) 
+                    var addpayment = await PaymentServices.AddTransaction(newTransaction);
+
+                    if (addpayment != null)
                     {
                         JS.InvokeVoidAsync("alert", "Your Transaction Add Compeletely !");
                         NavigationManager.NavigateTo($"/UserMainPage/{username}/{password}");
@@ -69,7 +69,7 @@ namespace Accountant.Web.Pages
                     ErorMessage = " Please fill Amount and Date  !";
                 }
 
-               
+
             }
 
             catch (Exception ex)

@@ -4,7 +4,7 @@ using Accountant.Web.Services.Contract;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Accountant.Web.Pages
+namespace Accountant.Web.Pages.IncomePages
 {
     public class AddIncomeTransactionBase : ComponentBase
     {
@@ -24,7 +24,7 @@ namespace Accountant.Web.Pages
         public IUserServices UserServices { get; set; }
 
         [Inject]
-        public IJSRuntime JS{ get; set; }
+        public IJSRuntime JS { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -34,7 +34,7 @@ namespace Accountant.Web.Pages
         public DateTime TransactionTime { get; set; } = DateTime.Now;
         public string? Descriptions { get; set; }
 
-        public string ErorMessage { get; set; }
+        public string ErrorMessage { get; set; }
 
         public async Task AddIncome_Click()
         {
@@ -55,24 +55,24 @@ namespace Accountant.Web.Pages
                     if (addtransaction != null)
                     {
                         JS.InvokeVoidAsync("alert", "Your Transaction Add Compeletely !");
-                        NavigationManager.NavigateTo ($"/UserMainPage/{username}/{password}");
+                        NavigationManager.NavigateTo($"/UserMainPage/{username}/{password}");
                     }
 
                     else
                     {
-                        JS.InvokeVoidAsync("alert","Your Transaction Isn't Complete ! ");
+                        JS.InvokeVoidAsync("alert", "Your Transaction Isn't Complete ! ");
                     }
                 }
 
                 else
                 {
-                    ErorMessage = " Please fill Amount and Date  !";
+                    ErrorMessage = " Please fill Amount and Date  !";
                 }
             }
 
             catch (Exception ex)
             {
-                ErorMessage = ex.Message;
+                ErrorMessage = ex.Message;
             }
         }
     }// Class

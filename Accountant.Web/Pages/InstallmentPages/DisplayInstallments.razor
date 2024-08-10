@@ -1,0 +1,32 @@
+﻿@inherits DisplayInstallmentsBase
+
+<div class="content">
+    @foreach (var item in Installments)
+    {
+        <div class="installments">
+            <h3>
+                Installment Amount :
+            </h3>
+            <h4>
+                @item.Amount.ToString("00.00")
+            </h4>
+
+            <h3>
+                Installment PayTime :
+            </h3>
+            <h4>
+                @item.PayTime.ToString("MM / dd / yy")
+            </h4>
+
+            @if (!item.PayOrNo)
+            {
+                <a class="pay-btn btn " @onclick="() => PayInstallment(item.ID)"> Pay </a>
+            }
+            else
+            {
+                <a class="not-active-btn btn"> Pay </a>
+            }
+        </div>
+
+    }
+</div>

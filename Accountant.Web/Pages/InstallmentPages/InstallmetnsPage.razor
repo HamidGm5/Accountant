@@ -1,0 +1,21 @@
+﻿<br />
+<h3>Installments</h3>
+@page "/InstallmentsPage/{UserID:int}/{Username}/{Password}/{LoanID:int}"
+@inherits InstallmentsBase
+
+@if (Installments == null && ErrorMessage == null)
+{
+    <DisplaySpinner />
+}
+else if (!URLOK)
+{
+    <DisplayEror ErorMessage="Don't manipulate the URL !"></DisplayEror>
+}
+else if (ErrorMessage != null)
+{
+    <DisplayEror ErorMessage="@ErrorMessage"></DisplayEror>
+}
+else
+{
+    <DisplayInstallments Installments="@Installments" UserID="@UserID" Username="@Username" Password="@Password" LoanID="@LoanID"></DisplayInstallments>
+}

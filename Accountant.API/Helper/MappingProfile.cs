@@ -8,7 +8,7 @@ namespace Accountant.API.Helper
 {
     public class MappingProfile : Profile
     {
-        public MappingProfile() 
+        public MappingProfile()
         {
             //Payment Transactions
             CreateMap<PaymentTransaction, PaymentTransactionDto>();
@@ -19,18 +19,21 @@ namespace Accountant.API.Helper
             CreateMap<AddTransactionsStandardDto, PaymentTransactionDto>();
 
             //User
-            CreateMap<User , UserDto>();
+            CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
 
 
             //Income Transaction
-            CreateMap<IncomeTransaction , IncomeTransactionDto>();
+            CreateMap<IncomeTransaction, IncomeTransactionDto>();
             CreateMap<IncomeTransaction, AddTransactionsStandardDto>();
             CreateMap<IncomeTransactionDto, AddTransactionsStandardDto>();
-            CreateMap<IncomeTransactionDto , IncomeTransaction>();
+            CreateMap<IncomeTransactionDto, IncomeTransaction>();
             CreateMap<AddTransactionsStandardDto, IncomeTransaction>();
             CreateMap<AddTransactionsStandardDto, IncomeTransactionDto>();
 
+            // Loan
+            CreateMap<Loan, LoanDto>();
+            CreateMap<LoanDto, Loan>();
         }
     }
 }

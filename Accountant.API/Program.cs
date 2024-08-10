@@ -1,4 +1,5 @@
 using Accountant.API;
+using Accountant.API.Business;
 using Accountant.API.Data;
 using Accountant.API.Repository;
 using Accountant.API.Repository.Interfaces;
@@ -21,13 +22,16 @@ builder.Services.AddDbContext<AccountantContext>
     (option =>
     {
         option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-                
+
     });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPaymentTransactionRepository, PaymentTransactionRepository>();
 builder.Services.AddScoped<IIncomeTransactionRepository, IncomeTransactionRepository>();
-
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+builder.Services.AddScoped<IinstallmentRepository, InstallmentRepository>();
+builder.Services.AddScoped<InstallmentBusiness>();
+builder.Services.AddScoped<LoanBusiness>();
 var app = builder.Build();
 
 

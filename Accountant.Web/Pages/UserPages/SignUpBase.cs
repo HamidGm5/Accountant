@@ -3,7 +3,7 @@ using Accountant.Web.Services.Contract;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Accountant.Web.Pages
+namespace Accountant.Web.Pages.UserPages
 {
     public class SignUpBase : ComponentBase
     {
@@ -43,34 +43,36 @@ namespace Accountant.Web.Pages
                             ImgURL = ImageURL
                         };
 
-                        if (UserServices.SignUp(NewUser) != null)
+                        if (await UserServices.SignUp(NewUser) != null)
                         {
                             await JS.InvokeAsync<UserDto>("alert", "You Signup With success ! ");
                             StateHasChanged();
 
-                            navigationManager.NavigateTo($"/Login");
+                            navigationManager.NavigateTo($"/UserMainPage/{Username}/{Password}",true);
                         }
 
                         else
                         {
-                            JS.InvokeVoidAsync("alert", "Somthing went wrong while signup you ! ");
+                            await JS.InvokeVoidAsync("alert", "Somthing went wrong while signup you ! ");
                         }
                     }
 
                     else
                     {
-                        JS.InvokeAsync<UserDto>("alert", " You should fill Username , Password And Email field !");
+                        await JS.InvokeAsync<UserDto>("alert", " You should fill Username , Password And Email field !");
                     }
                 }
 
                 else
                 {
-                    JS.InvokeAsync<UserDto>("alert", "Your password and confirm should be match exactly !");
+                   await JS.InvokeAsync<UserDto>("alert", "Your password and confirm should be match exactly !");
                 }
             }
 
             catch (Exception ex)
             {
+                await JS.InvokeVoidAsync("alert", "Somthing went wrong while signup you maybe your username taken before ! ");
+
                 ErorMessage = ex.Message;
             }
         }

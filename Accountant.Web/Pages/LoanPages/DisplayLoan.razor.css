@@ -1,0 +1,77 @@
+﻿.Content {
+    border: 5px solid rgb(0, 181, 121);
+    border-radius: 20px;
+    margin: 3% 4% 3% 4%;
+    background-color: rgb(2, 19, 11);
+    text-align: left;
+}
+
+    .Content:hover {
+        border-radius: 30px;
+        border: 5px solid rgb(0, 88, 59);
+    }
+
+.LoanBox {
+    margin: 30px 100px;
+    text-decoration: none;
+    color: white;
+}
+
+h3 {
+    display: inline;
+    padding-left: 0;
+    padding-bottom: 1%;
+    margin-left: 10%;
+}
+
+h4 {
+    display: inline;
+    margin-left: 8px;
+}
+
+.near-pay {
+    display: inline;
+    margin-left: 8px;
+    color: rgb(196, 0, 0);
+    font-weight: 600;
+}
+
+.btns {
+    margin-left: 42%;
+    margin-right: 42%;
+}
+
+.update-loan {
+    background-color: rgb(201, 138, 0);
+    color: black;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+    .update-loan:hover {
+        font-size: 1.3rem;
+        border-radius: 15px;
+    }
+
+.delete-loan {
+    background-color: red;
+    color: black;
+    margin-left: 15px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+    .delete-loan:hover {
+        font-size: 1.3rem;
+        border-radius: 15px;
+    }
+
+.delete-loan, .update-loan {
+    margin-bottom: 8px;
+}
+
+.remain {
+    color: rgb(204, 120, 120);
+}

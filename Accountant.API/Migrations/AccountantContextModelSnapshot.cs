@@ -49,56 +49,16 @@ namespace Accountant.API.Migrations
                     b.ToTable("IncomeTransactions");
                 });
 
-            modelBuilder.Entity("Accountant.API.Entities.Loan", b =>
+            modelBuilder.Entity("Accountant.API.Entities.Installment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<double>("AllAmount")
+                    b.Property<double>("Amount")
                         .HasColumnType("float");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("InterestRate")
-                        .HasColumnType("real");
-
-                    b.Property<int>("LoanPeriodPerMonth")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("PayOrQueue")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Loans");
-                });
-
-            modelBuilder.Entity("Accountant.API.Entities.LoanInstallment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("InstallmentAmountPerMonth")
-                        .HasColumnType("float");
-
-                    b.Property<int>("LoanId")
-                        .HasColumnType("int");
 
                     b.Property<bool>("PayOrNo")
                         .HasColumnType("bit");
@@ -106,11 +66,53 @@ namespace Accountant.API.Migrations
                     b.Property<DateTime>("PayTime")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.Property<int>("loanID")
+                        .HasColumnType("int");
 
-                    b.HasIndex("LoanId");
+                    b.HasKey("ID");
 
-                    b.ToTable("LoanInstallments");
+                    b.HasIndex("loanID");
+
+                    b.ToTable("Installments");
+                });
+
+            modelBuilder.Entity("Accountant.API.Entities.Loan", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("LoanAmount")
+                        .HasColumnType("float");
+
+                    b.Property<float>("Percentage")
+                        .HasColumnType("real");
+
+                    b.Property<int>("PeriodPerMonth")
+                        .HasColumnType("int");
+
+                    b.Property<double>("RecursiveAmount")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("userId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("Loans");
                 });
 
             modelBuilder.Entity("Accountant.API.Entities.PaymentTransaction", b =>
@@ -179,26 +181,26 @@ namespace Accountant.API.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Accountant.API.Entities.Loan", b =>
+            modelBuilder.Entity("Accountant.API.Entities.Installment", b =>
                 {
-                    b.HasOne("Accountant.API.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                    b.HasOne("Accountant.API.Entities.Loan", "loan")
+                        .WithMany("Intallments")
+                        .HasForeignKey("loanID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("loan");
                 });
 
-            modelBuilder.Entity("Accountant.API.Entities.LoanInstallment", b =>
+            modelBuilder.Entity("Accountant.API.Entities.Loan", b =>
                 {
-                    b.HasOne("Accountant.API.Entities.Loan", "Loan")
-                        .WithMany("InstallmentLoans")
-                        .HasForeignKey("LoanId")
+                    b.HasOne("Accountant.API.Entities.User", "user")
+                        .WithMany("Loans")
+                        .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Loan");
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("Accountant.API.Entities.PaymentTransaction", b =>
@@ -214,12 +216,14 @@ namespace Accountant.API.Migrations
 
             modelBuilder.Entity("Accountant.API.Entities.Loan", b =>
                 {
-                    b.Navigation("InstallmentLoans");
+                    b.Navigation("Intallments");
                 });
 
             modelBuilder.Entity("Accountant.API.Entities.User", b =>
                 {
                     b.Navigation("IncomeTransactions");
+
+                    b.Navigation("Loans");
 
                     b.Navigation("PaymentTransactions");
                 });

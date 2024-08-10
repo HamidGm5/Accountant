@@ -18,16 +18,44 @@ namespace Accountant.Web.Pages.InstallmentPages
         [Inject]
         public IinstallmentServices services { get; set; }
         [Inject]
+        public ILoanServices LoanServices { get; set; }
+        [Inject]
+        public IUserServices UserServices { get; set; }
+        [Inject]
         public NavigationManager navigate { get; set; }
 
         public ICollection<InstallmentDto> Installments { get; set; }
+        public UserDto UserResponse { get; set; }
+        public LoanDto LoanResponse { get; set; }
+        public bool URLOK { get; set; }
+
         public string ErrorMessage { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {
             try
             {
-                Installments = await services.GetInstallments(LoanID);
+                UserResponse = await UserServices.Login(Username, Password);
+                LoanResponse = await LoanServices.GetLoanByLoanID(UserID, LoanID);
+                if (UserResponse != null && LoanResponse != null)
+                {
+                    if (UserResponse.Id == UserID)
+                    {
+                        URLOK = true;
+                        Installments = await services.GetInstallments(LoanID);
+                    }
+                    else
+                    {
+                        URLOK = false;
+                        ErrorMessage = "URL Is manipulated !";
+                    }
+                }
+                else
+                {
+                    URLOK = false;
+                    ErrorMessage = "URL Is manipulated !";
+
+                }
             }
             catch (Exception ex)
             {

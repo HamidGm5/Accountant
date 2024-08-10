@@ -71,7 +71,7 @@ namespace Accountant.Web.Pages.UserPages
 
             catch (Exception ex)
             {
-                JS.InvokeVoidAsync("alert", "Somthing went wrong while signup you maybe your username taken before ! ");
+                await JS.InvokeVoidAsync("alert", "Somthing went wrong while signup you maybe your username taken before ! ");
 
                 ErorMessage = ex.Message;
             }

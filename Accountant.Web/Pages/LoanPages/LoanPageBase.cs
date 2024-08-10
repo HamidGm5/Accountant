@@ -21,12 +21,13 @@ namespace Accountant.Web.Pages.LoanPages
         [Inject]
         public IJSRuntime js { get; set; }
         [Inject]
-        public IToastService Toast { get; set; }
+        public IUserServices UserServices { get; set; }
         [Inject]
         public NavigationManager navigation { get; set; }
 
         public ICollection<LoanDto> Loans { get; set; }
         public string AddNewLoanURL { get; set; }
+        public UserDto UserResponse { get; set; }
 
         public string ErrorMessage { get; set; }
 
@@ -34,8 +35,11 @@ namespace Accountant.Web.Pages.LoanPages
         {
             try
             {
+                UserResponse = await UserServices.Login(Username, Password);
+
                 Loans = await services.GetUserLoan(UserID);
                 AddNewLoanURL = $"/AddNewLoan/{UserID}/{Username}/{Password}";
+
             }
             catch (Exception ex)
             {
@@ -74,7 +78,7 @@ namespace Accountant.Web.Pages.LoanPages
                 await js.InvokeVoidAsync("alert", ex.Message);
             }
         }
-        
+
         public async void DeleteLoan()
         {
 

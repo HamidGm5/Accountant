@@ -20,12 +20,25 @@ namespace Accountant.Web.Pages.InstallmentPages
         [Inject]
         public IinstallmentServices services { get; set; }
         [Inject]
+        public IPaymentServices Paymentservices { get; set; }
+        [Inject]
         public NavigationManager Navigation { get; set; }
 
         public async void PayInstallment(int ID)
         {
             var Response = await services.UpdatePay(ID);
-            if (Response)
+
+            AddTransactionsStandardDto transaction = new AddTransactionsStandardDto()
+            {
+                Amount = Installments.FirstOrDefault().Amount,
+                Descriptions = "Pay for Loan",
+                TransactionTime = DateTime.Now,
+                Userid = UserID
+            };
+
+            var TransactionResponse = await Paymentservices.AddTransaction(transaction);
+
+            if (Response && TransactionResponse != null)
             {
                 StateHasChanged();
                 Navigation.NavigateTo(Navigation.Uri, true);

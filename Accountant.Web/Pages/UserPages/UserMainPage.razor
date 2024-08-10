@@ -8,7 +8,7 @@
 
 else if (ErrorMessage != null)
 {
-    <DisplayEror ErorMessage="@ErrorMessage"></DisplayEror>
+    <DisplayEror ErorMessage="Your Username or password is wrong !"></DisplayEror>
 }
 
 else
@@ -47,7 +47,7 @@ else
             <br />
 
             <h2 class="fw-bolder text-warning">
-                Your Balance In This Month is : @Remaining <span class="oi oi-dollar"></span>
+                Your Balance In This Month is : @Remaining.ToString("00.00") <span class="oi oi-dollar"></span>
             </h2>
         </div>
     }

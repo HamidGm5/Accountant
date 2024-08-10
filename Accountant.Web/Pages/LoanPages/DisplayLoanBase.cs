@@ -68,7 +68,7 @@ namespace Accountant.Web.Pages.LoanPages
                 UpdateURL = $"/UpdateLoan/{UserID}/{Username}/{Password}/{Loan.ID}";
                 InstallmentsURL = $"/InstallmentsPage/{UserID}/{Username}/{Password}/{Loan.ID}";
 
-                NearToPay = (LastPayTime - DateTime.Now).Days < 7;  // this is for if you have less than week the text of last pay time going to red !
+                NearToPay = (LastPayTime - DateTime.Now).Days < 7;  // this is for if you have less than week the text of last pay time going to red !a
 
             }
             catch (Exception ex)

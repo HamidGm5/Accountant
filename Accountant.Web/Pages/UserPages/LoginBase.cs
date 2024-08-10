@@ -18,9 +18,6 @@ namespace Accountant.Web.Pages.UserPages
 
         public int userid { get; set; }
 
-
-        public NavigationManager navigationManager { get; set; }
-
         public string ErorMessage { get; set; }
 
 

@@ -10,6 +10,10 @@ else if (ErrorMessage != null)
 {
     <DisplayEror ErorMessage="@ErrorMessage"></DisplayEror>
 }
+else if (UserResponse == null || UserResponse.Id != UserID)
+{
+    <DisplayEror ErorMessage="Don't manipulate the URL !"></DisplayEror>
+}
 else
 {
     <div class="nav nav-btn">

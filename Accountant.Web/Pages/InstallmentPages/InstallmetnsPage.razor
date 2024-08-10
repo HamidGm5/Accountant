@@ -7,6 +7,10 @@
 {
     <DisplaySpinner />
 }
+else if (!URLOK)
+{
+    <DisplayEror ErorMessage="Don't manipulate the URL !"></DisplayEror>
+}
 else if (ErrorMessage != null)
 {
     <DisplayEror ErorMessage="@ErrorMessage"></DisplayEror>

@@ -144,6 +144,45 @@ namespace Accountant.API.Controllers
             }
         }
 
+        [HttpPost("{Count:int}" , Name ="AddMultiIncomes")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<bool>> AddMultiIncomes([FromBody] AddTransactionsStandardDto transaction , int Count)
+        {
+            try
+            {
+                if (await _userRepository.UserExists(transaction.Userid))
+                {
+                    if (ModelState.IsValid) 
+                    {
+                        var TransactionMap = _mapper.Map<IncomeTransaction>(transaction);
+                        TransactionMap.User = await _userRepository.GetUserById(transaction.Userid);
+
+                        List<IncomeTransaction> incomeTransactions = new List<IncomeTransaction>();
+                        incomeTransactions.AddRange(Enumerable.Repeat(TransactionMap, Count));
+                        if(!await _repository.AddMultiIncomes(incomeTransactions))
+                        {
+                            return BadRequest();
+                        }
+                        else
+                        {
+                            return Ok("SuccessFully");
+                        }
+                    }
+                    return BadRequest();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
 
         [HttpPatch("{UserId:int}")]
         public async Task<ActionResult<IncomeTransactionDto>> UpdateTransaction(int UserId,

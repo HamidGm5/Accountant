@@ -8,6 +8,7 @@ namespace Accountant.API.Repository.Interfaces
         Task<ICollection<IncomeTransaction>> GetAllIncomes();
         Task<ICollection<IncomeTransaction>> IncomeTransactions(int userid);
         Task<IncomeTransaction> IncomeTransaction(int userid, int transactionid);
+        Task<bool> AddMultiIncomes(List<IncomeTransaction> incomeTransactions);
         Task<IncomeTransaction> AddIncomeTransaction(IncomeTransaction standardTransaction);
         Task<IncomeTransaction> UpdateIncomeTransactioin(IncomeTransaction transaction);
         Task<IncomeTransaction> DeleteIncomeTransaction(IncomeTransaction transaction);

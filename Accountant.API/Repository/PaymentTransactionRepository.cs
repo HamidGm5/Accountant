@@ -84,5 +84,18 @@ namespace Accountant.API.Repository
             await _context.SaveChangesAsync();
             return payment;
         }
+
+        public async Task<bool> AddMultiPayments(ICollection<PaymentTransaction> paymentTransactions)
+        {
+            try
+            {
+                await _context.AddRangeAsync(paymentTransactions);
+                return await Save();
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

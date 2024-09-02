@@ -22,6 +22,19 @@ namespace Accountant.API.Repository
             return incomeTransaction;
         }
 
+        public async Task<bool> AddMultiIncomes(List<IncomeTransaction> incomeTransactions)
+        {
+            try
+            {
+                await _context.IncomeTransactions.AddRangeAsync(incomeTransactions);
+                return await Save();
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public async Task<IncomeTransaction> DeleteIncomeTransaction(IncomeTransaction transaction)
         {
             _context.IncomeTransactions.Remove(transaction);

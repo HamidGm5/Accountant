@@ -6,8 +6,9 @@ namespace Accountant.API.Repository.Interfaces
     public interface IPaymentTransactionRepository
     {
         Task<ICollection<PaymentTransaction>> GetAllPaymentTransactions();
-        Task<ICollection<PaymentTransaction>> PaymentTransactions(int userid);    // This
+        Task<ICollection<PaymentTransaction>> PaymentTransactions(int userid);
         Task<PaymentTransaction> PaymentTransaction(int userid, int transactionid);
+        Task<bool> AddMultiPayments(ICollection<PaymentTransaction> paymentTransactions);
         Task<PaymentTransaction> AddPaymentTransaction(PaymentTransaction transactionDto);
         Task<PaymentTransaction> UpdatePaymentTransaction(PaymentTransaction transaction);
         Task<PaymentTransaction> DeletePaymentTransaction(PaymentTransaction payment);

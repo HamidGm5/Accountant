@@ -15,6 +15,31 @@ namespace Accountant.Web.Services
             _client = client;
         }
 
+        public async Task<bool> AddMultiIncomeTransaction(AddTransactionsStandardDto incomeTransaction, int Count)
+        {
+            try
+            {
+                var response = await _client.PostAsJsonAsync($"api/IncomeTransaction/{Count}", incomeTransaction);
+                if (response.IsSuccessStatusCode)
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+                else
+                {
+                    var message = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"the error message : {message} and Http status is : {response.StatusCode}");
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public async Task<IncomeTransactionDto> AddTransaction(AddTransactionsStandardDto standardDto)
         {
             var response = await _client.PostAsJsonAsync($"api/IncomeTransaction", standardDto);
@@ -25,7 +50,7 @@ namespace Accountant.Web.Services
                 {
                     return default(IncomeTransactionDto);
                 }
-                return await response.Content.ReadFromJsonAsync<IncomeTransactionDto>();  
+                return await response.Content.ReadFromJsonAsync<IncomeTransactionDto>();
             }
             else
             {
@@ -152,14 +177,14 @@ namespace Accountant.Web.Services
         }
 
 
-        public async Task<IncomeTransactionDto> UpdateTransaction(int userid ,IncomeTransactionDto transaction)
+        public async Task<IncomeTransactionDto> UpdateTransaction(int userid, IncomeTransactionDto transaction)
         {
             try
             {
                 var jsonRequest = JsonConvert.SerializeObject(transaction);
                 var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
 
-                var response = await _client.PatchAsync($"api/IncomeTransaction/{userid}" , content);
+                var response = await _client.PatchAsync($"api/IncomeTransaction/{userid}", content);
 
                 if (response.IsSuccessStatusCode)
                 {

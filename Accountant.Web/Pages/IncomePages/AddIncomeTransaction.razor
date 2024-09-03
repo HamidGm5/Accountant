@@ -7,7 +7,7 @@
             Add New Payment Transaction
         </h2>
 
-        <label class ="transaction-lbl">
+        <label class="transaction-lbl">
             Enter Transaction Time :
         </label>
 
@@ -28,6 +28,14 @@
         </label>
 
         <input class="income-input" type="text" @bind="@Descriptions" />
+
+        <br />
+
+        <label class="transaction-lbl">
+            Enter Count Of Transaction :
+        </label>
+
+        <input class="income-input" type="number" step="1" @bind="@Count" /> @* strp can help for the user don't enter float number *@
 
         <br />
         <br />

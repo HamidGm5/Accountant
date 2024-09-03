@@ -33,6 +33,7 @@ namespace Accountant.Web.Pages.IncomePages
         public double Amount { get; set; }
         public DateTime TransactionTime { get; set; } = DateTime.Now;
         public string? Descriptions { get; set; }
+        public int Count { get; set; } = 1;
 
         public string ErrorMessage { get; set; }
 
@@ -50,17 +51,38 @@ namespace Accountant.Web.Pages.IncomePages
 
                 if (newTransaction != null)
                 {
-                    var addtransaction = await IncomeServices.AddTransaction(newTransaction);
-
-                    if (addtransaction != null)
+                    if (Count == 1)
                     {
-                        JS.InvokeVoidAsync("alert", "Your Transaction Add Compeletely !");
-                        NavigationManager.NavigateTo($"/UserMainPage/{username}/{password}");
-                    }
+                        var addtransaction = await IncomeServices.AddTransaction(newTransaction);
 
+                        if (addtransaction != null)
+                        {
+                            await JS.InvokeVoidAsync("alert", "Your Transaction Add Compeletely !");
+                            NavigationManager.NavigateTo($"/UserMainPage/{username}/{password}");
+                        }
+
+                        else
+                        {
+                           await JS.InvokeVoidAsync("alert", "Your Transaction Isn't Complete ! ");
+                        }
+                    }
+                    else if (Count > 1)
+                    {
+                        bool addtransaction = await IncomeServices.AddMultiIncomeTransaction(newTransaction, Count);
+
+                        if (addtransaction)
+                        {
+                           await JS.InvokeVoidAsync("alert", "Your Transaction Add Compeletely !");
+                            NavigationManager.NavigateTo($"/UserMainPage/{username}/{password}");
+                        }
+                        else
+                        {
+                            await JS.InvokeVoidAsync("alert", "Your Transaction Isn't Complete ! ");
+                        }
+                    }
                     else
                     {
-                        JS.InvokeVoidAsync("alert", "Your Transaction Isn't Complete ! ");
+                        await JS.InvokeVoidAsync("alert", "Count shouldn't be less than 1 !");
                     }
                 }
 

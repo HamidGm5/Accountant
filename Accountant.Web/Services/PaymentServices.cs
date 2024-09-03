@@ -14,6 +14,32 @@ namespace Accountant.Web.Services
             _client = client;
         }
 
+        public async Task<bool> AddMultiPaymentTransaction(AddTransactionsStandardDto paymentTransaction, int Count)
+        {
+            try
+            {
+                var response = await _client.PostAsJsonAsync($"api/PaymentTransaction/{Count}", paymentTransaction);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+                else
+                {
+                    var message = response.Content.ReadAsStringAsync();
+                    throw new Exception($"The error Status code: {response.StatusCode} and Message : {message}");
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public async Task<PaymentTransactionDto> AddTransaction(AddTransactionsStandardDto paymentsStandard)
         {
             try

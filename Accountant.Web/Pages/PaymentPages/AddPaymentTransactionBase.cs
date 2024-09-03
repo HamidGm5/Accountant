@@ -33,14 +33,15 @@ namespace Accountant.Web.Pages.PaymentPages
         public double Amount { get; set; }
         public DateTime TransactionTime { get; set; } = DateTime.Now;
         public string? Descriptions { get; set; }
+        public int Count { get; set; } = 1;
 
         public string ErorMessage { get; set; }
 
+        
         public async Task AddPayment_Click()
         {
             try
             {
-
                 newTransaction = new AddTransactionsStandardDto
                 {
                     Userid = userid,
@@ -51,16 +52,37 @@ namespace Accountant.Web.Pages.PaymentPages
 
                 if (newTransaction != null)
                 {
-                    var addpayment = await PaymentServices.AddTransaction(newTransaction);
-
-                    if (addpayment != null)
+                    if (Count == 1)
                     {
-                        JS.InvokeVoidAsync("alert", "Your Transaction Add Compeletely !");
-                        NavigationManager.NavigateTo($"/UserMainPage/{username}/{password}");
+                        var addpayment = await PaymentServices.AddTransaction(newTransaction);
+
+                        if (addpayment != null)
+                        {
+                            await JS.InvokeVoidAsync("alert", "Your Transaction Add Compeletely !");
+                            NavigationManager.NavigateTo($"/UserMainPage/{username}/{password}");
+                        }
+                        else
+                        {
+                           await JS.InvokeVoidAsync("alert", "Your Transaction Isn't Complete ! ");
+                        }
+                    }
+                    else if (Count > 1)
+                    {
+                        bool addpayment = await PaymentServices.AddMultiPaymentTransaction(newTransaction , Count);
+
+                        if (addpayment)
+                        {
+                            await JS.InvokeVoidAsync("alert", "Your Transaction Add Compeletely !");
+                            NavigationManager.NavigateTo($"/UserMainPage/{username}/{password}");
+                        }
+                        else
+                        {
+                            await JS.InvokeVoidAsync("alert", "Your Transaction Isn't Complete ! ");
+                        }
                     }
                     else
                     {
-                        JS.InvokeVoidAsync("alert", "Your Transaction Isn't Complete ! ");
+                        await JS.InvokeVoidAsync("alert", "Count Shouldn't be less than 1 !");
                     }
                 }
 
@@ -68,8 +90,6 @@ namespace Accountant.Web.Pages.PaymentPages
                 {
                     ErorMessage = " Please fill Amount and Date  !";
                 }
-
-
             }
 
             catch (Exception ex)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Accountant.API.Migrations
 {
     /// <inheritdoc />
-    public partial class Accontant : Migration
+    public partial class AccountantMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,14 +36,14 @@ namespace Accountant.API.Migrations
                     Amount = table.Column<double>(type: "float", nullable: false),
                     TransactionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Descriptions = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    userId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IncomeTransactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_IncomeTransactions_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_IncomeTransactions_Users_userId",
+                        column: x => x.userId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -84,14 +84,14 @@ namespace Accountant.API.Migrations
                     Amount = table.Column<double>(type: "float", nullable: false),
                     TransactionTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Descriptions = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    userId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PaymentTransactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PaymentTransactions_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_PaymentTransactions_Users_userId",
+                        column: x => x.userId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -120,9 +120,9 @@ namespace Accountant.API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_IncomeTransactions_UserId",
+                name: "IX_IncomeTransactions_userId",
                 table: "IncomeTransactions",
-                column: "UserId");
+                column: "userId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Installments_loanID",
@@ -135,9 +135,9 @@ namespace Accountant.API.Migrations
                 column: "userId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PaymentTransactions_UserId",
+                name: "IX_PaymentTransactions_userId",
                 table: "PaymentTransactions",
-                column: "UserId");
+                column: "userId");
         }
 
         /// <inheritdoc />

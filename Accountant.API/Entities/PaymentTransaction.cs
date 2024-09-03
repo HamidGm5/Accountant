@@ -5,6 +5,8 @@ namespace Accountant.API.Entities
 {
     public class PaymentTransaction
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public int Id { get; set; }
         public double Amount { get; set; }
         public DateTime TransactionTime { get; set; } = DateTime.Now;

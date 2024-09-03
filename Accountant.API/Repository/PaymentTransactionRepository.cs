@@ -64,8 +64,8 @@ namespace Accountant.API.Repository
 
         public async Task<bool> Save()
         {
-            var saved = await _context.SaveChangesAsync();
-            return saved > 0 ? true : false;
+            var Saved = await _context.SaveChangesAsync();
+            return Saved > 0 ? true : false;
         }
 
         public async Task<bool> PaymentExists(int transactionid)
@@ -88,10 +88,21 @@ namespace Accountant.API.Repository
         public async Task<bool> AddMultiPayments(ICollection<PaymentTransaction> paymentTransactions)
         {
             try
-            {
-                await _context.AddRangeAsync(paymentTransactions);
+            {   
+                // i'm try to do with AddRangeAsync but just insert one data of collection and don't work 
+                foreach (var item in paymentTransactions)
+                {
+                    await _context.PaymentTransactions.AddAsync(new PaymentTransaction
+                    {
+                        Amount = item.Amount,
+                        Descriptions = item.Descriptions,
+                        TransactionTime = item.TransactionTime,
+                        User = item.User
+                    });
+                }
                 return await Save();
             }
+
             catch
             {
                 return false;

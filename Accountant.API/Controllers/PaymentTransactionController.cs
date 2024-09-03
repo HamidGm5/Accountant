@@ -144,28 +144,31 @@ namespace Accountant.API.Controllers
             }
         }
 
-        [HttpPost("{Count:int}" , Name ="AddMultiPayments")]
+        [HttpPost("{Count:int}", Name = "AddMultiPayments")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<bool>> AddMultiPayments([FromBody]AddTransactionsStandardDto transaction , int Count)
+        public async Task<ActionResult<bool>> AddMultiPayments([FromBody] AddTransactionsStandardDto transaction, int Count)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if(await _userRepository.UserExists(transaction.Userid))
+                    if (await _userRepository.UserExists(transaction.Userid))
                     {
                         var TransactionMap = _mapper.Map<PaymentTransaction>(transaction);
                         TransactionMap.User = await _userRepository.GetUserById(transaction.Userid);
 
                         List<PaymentTransaction> Payments = new List<PaymentTransaction>();
                         Payments.AddRange(Enumerable.Repeat(TransactionMap, Count));
-                        
-                        if(await _repository.AddMultiPayments(Payments))        // add just one transaction ! (in here and too for income)
+
+                        if (!await _repository.AddMultiPayments(Payments))
                         {
-                            return Ok("Successfully");
+                            return BadRequest();
                         }
+
+                        return Ok("Successfully");
+
                     }
                     return NotFound();
                 }
@@ -173,6 +176,7 @@ namespace Accountant.API.Controllers
             }
             catch
             {
+                // Log Exception
                 throw;
             }
         }

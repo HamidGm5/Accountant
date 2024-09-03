@@ -161,13 +161,14 @@ namespace Accountant.API.Controllers
 
                         List<IncomeTransaction> incomeTransactions = new List<IncomeTransaction>();
                         incomeTransactions.AddRange(Enumerable.Repeat(TransactionMap, Count));
+
                         if(!await _repository.AddMultiIncomes(incomeTransactions))
                         {
                             return BadRequest();
                         }
                         else
                         {
-                            return Ok("SuccessFully");
+                            return Ok("Successfully");
                         }
                     }
                     return BadRequest();

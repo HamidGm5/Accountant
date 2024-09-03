@@ -26,7 +26,17 @@ namespace Accountant.API.Repository
         {
             try
             {
-                await _context.IncomeTransactions.AddRangeAsync(incomeTransactions);
+                // try for do by AddRangeAsync But just one data going to save insted of all datak
+                foreach (var item in incomeTransactions)
+                {
+                    await _context.IncomeTransactions.AddAsync(new IncomeTransaction()
+                    {
+                        Amount = item.Amount,
+                        Descriptions = item.Descriptions,
+                        TransactionTime = item.TransactionTime,
+                        User = item.User
+                    });
+                }
                 return await Save();
             }
             catch

@@ -17,5 +17,24 @@ namespace Accountant.API.Data
         public DbSet<Loan> Loans { get; set; }
         public DbSet<Installment> Installments { get; set; }
 
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>(entity =>
+                entity.HasMany(it => it.IncomeTransactions).
+                WithOne(u => u.User).
+                HasForeignKey("userId").
+                IsRequired()
+            );
+
+            modelBuilder.Entity<User>(entity =>
+                entity.HasMany(pt => pt.PaymentTransactions).
+                WithOne(u => u.User).
+                HasForeignKey("userId")
+                .IsRequired()
+            );
+        }
+
+
     }
 }

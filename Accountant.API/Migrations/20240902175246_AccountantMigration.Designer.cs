@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Accountant.API.Migrations
 {
     [DbContext(typeof(AccountantContext))]
-    [Migration("20240808065722_Accontant")]
-    partial class Accontant
+    [Migration("20240902175246_AccountantMigration")]
+    partial class AccountantMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,12 +42,12 @@ namespace Accountant.API.Migrations
                     b.Property<DateTime?>("TransactionTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("userId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("userId");
 
                     b.ToTable("IncomeTransactions");
                 });
@@ -135,12 +135,12 @@ namespace Accountant.API.Migrations
                     b.Property<DateTime>("TransactionTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("userId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("userId");
 
                     b.ToTable("PaymentTransactions");
                 });
@@ -177,7 +177,7 @@ namespace Accountant.API.Migrations
                 {
                     b.HasOne("Accountant.API.Entities.User", "User")
                         .WithMany("IncomeTransactions")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -210,7 +210,7 @@ namespace Accountant.API.Migrations
                 {
                     b.HasOne("Accountant.API.Entities.User", "User")
                         .WithMany("PaymentTransactions")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

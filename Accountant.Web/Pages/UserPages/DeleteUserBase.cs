@@ -12,13 +12,6 @@ namespace Accountant.Web.Pages.UserPages
         [Parameter]
         public string Password { get; set; }
 
-        public string Email { get; set; }
-        public int userid { get; set; } = 0;
-
-        public UserDto Finduser { get; set; }
-
-        public string ErorMessage { get; set; }
-
         [Inject]
         public IUserServices UserServices { get; set; }
 
@@ -29,6 +22,14 @@ namespace Accountant.Web.Pages.UserPages
         public IIncomeServices IncomeServices { get; set; }
         [Inject]
         public ILoanServices LoanServices { get; set; }
+
+        public string Email { get; set; } = "";
+        public int userid { get; set; } = 0;
+
+        public UserDto Finduser { get; set; }
+
+        public string? ErorMessage { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             try

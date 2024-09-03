@@ -18,14 +18,14 @@ namespace Accountant.Web.Pages.UserPages
         public UserDto User { get; set; }
 
 
-        public int userid { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public string confirmPassword { get; set; }
-        public string email { get; set; }
-        public string imgUrl { get; set; }
+        public int userid { get; set; } = 0;
+        public string username { get; set; } = "";
+        public string password { get; set; } = "";
+        public string confirmPassword { get; set; } = "";
+        public string email { get; set; } = "";
+        public string? imgUrl { get; set; } = "";
 
-        public string ErorMessage { get; set; }
+        public string ErorMessage { get; set; } = "";
 
 
         protected async override Task OnParametersSetAsync()

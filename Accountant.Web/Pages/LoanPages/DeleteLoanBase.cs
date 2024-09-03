@@ -25,9 +25,9 @@ namespace Accountant.Web.Pages.LoanPages
         [Inject]
         public NavigationManager navigation { get; set; }
 
-        public string RecursiveAmount { get; set; }
+        public string? RecursiveAmount { get; set; }
         public LoanDto Loan { get; set; }
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {

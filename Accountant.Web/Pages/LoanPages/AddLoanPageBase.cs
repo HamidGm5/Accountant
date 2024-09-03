@@ -29,7 +29,7 @@ namespace Accountant.Web.Pages.LoanPages
         public string? Description { get; set; }
         public DateTime StartTime { get; set; } = DateTime.Now;
 
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
 
         public async void SubmitNewLoan_Click()
         {

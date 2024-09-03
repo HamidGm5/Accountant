@@ -1,18 +1,16 @@
 ﻿@page "/UpdatePayment/{Username}/{Password}/{TransactionId:int}"
 
 @code {
-
     [Parameter]
     public string Username { get; set; }
 
     [Parameter]
     public string Password { get; set; }
-
     [Parameter]
     public int TransactionId { get; set; }
 
 
-    public int Userid { get; set; }
+    public int Userid { get; set; } 
 
     public PaymentTransactionDto TransactionDto { get; set; }
 
@@ -32,12 +30,12 @@
 
     public DateTime TransactionTime { get; set; }
 
-    public string TransactionDescription { get; set; }
+    public string? TransactionDescription { get; set; } 
 
 
-    public string MainPageUrl { get; set; }
+    public string? MainPageUrl { get; set; }
 
-    public string ErrorMessage { get; set; }
+    public string? ErrorMessage { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
@@ -80,12 +78,12 @@
 
         if(UpdateTransaction != null)
         {
-            JS.InvokeVoidAsync("alert","Your Transaction Update Record SuccessFuly !");
+            await JS.InvokeVoidAsync("alert","Your Transaction Update Record SuccessFuly !");
             navigationManager.NavigateTo($"/UserMainPage/{Username}/{Password}");
         }
         else
         {
-            JS.InvokeVoidAsync("alert","Somthing went wrong while Update Your Transaction !");
+            await JS.InvokeVoidAsync("alert","Somthing went wrong while Update Your Transaction !");
         }
 
     }
@@ -104,7 +102,7 @@ else if (ErrorMessage != null)
 
 else
 {
-    <div class="">
+    <div class="body">
         <div class="update-pay-box">
             <h2 class="text-white mb-2">
                 Update Payment Transaction

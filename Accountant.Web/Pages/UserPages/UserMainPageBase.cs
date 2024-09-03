@@ -23,7 +23,7 @@ namespace Accountant.Web.Pages.UserPages
         public IPaymentServices PaymentServices { get; set; }
 
         public UserDto user { get; set; }
-        public ICollection<PaymentTransactionDto> PaymentTransactions { get; set; }
+        public ICollection<PaymentTransactionDto> PaymentTransactions { get; set; } 
         public ICollection<IncomeTransactionDto> IncomeTransactions { get; set; }
 
         public ICollection<PaymentTransactionDto> MonthPayment { get; set; }
@@ -31,21 +31,21 @@ namespace Accountant.Web.Pages.UserPages
 
         public NavigationManager navigationManager { get; set; }
 
-        public double Remaining { get; set; }
+        public double Remaining { get; set; } 
         public int userid { get; set; }
-        public string AddPaymentURL { get; set; }
-        public string AddIncomeURL { get; set; }
-        public string DeleteUserURL { get; set; }
-        public string UpdateUserURL { get; set; }
-        public string LoanURL { get; set; }
-        public string ErrorMessage { get; set; }
+        public string AddPaymentURL { get; set; } = ""; 
+        public string AddIncomeURL { get; set; } = "";
+        public string DeleteUserURL { get; set; } = "";
+        public string UpdateUserURL { get; set; } = "";
+        public string LoanURL { get; set; } = "";
+        public string? ErrorMessage { get; set; } 
 
         protected async override Task OnParametersSetAsync()
         {
             try
             {
                 user = await UserServices.Login(username, password);
-                userid = (int)user.Id;
+                userid = Convert.ToInt32(user.Id);
 
                 PaymentTransactions = await PaymentServices.GetTransactions(userid);
                 IncomeTransactions = await IncomeServices.GetTransactions(userid);
@@ -78,7 +78,8 @@ namespace Accountant.Web.Pages.UserPages
 
         protected async Task<ICollection<PaymentTransactionDto>> PaymentInMonth(DateTime date)
         {
-            var incomeInMonth = PaymentTransactions.Where(ic => ic.TransactionTime.Month == date.Month).OrderByDescending(ic => ic.TransactionTime).ToList();
+            var incomeInMonth = PaymentTransactions.Where(ic => ic.TransactionTime.Month == date.Month)
+                .OrderBy(ic => ic.TransactionTime).ToList();
             return incomeInMonth;
         }
 

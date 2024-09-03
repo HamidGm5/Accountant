@@ -17,7 +17,6 @@ builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<ILoanServices, LoanServices>();
 builder.Services.AddScoped<IinstallmentServices, InstallmentServices>();
 
-builder.Services.AddBlazoredToast();
 
 
 await builder.Build().RunAsync();

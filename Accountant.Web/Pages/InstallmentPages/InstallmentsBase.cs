@@ -29,7 +29,7 @@ namespace Accountant.Web.Pages.InstallmentPages
         public LoanDto LoanResponse { get; set; }
         public bool URLOK { get; set; }
 
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {

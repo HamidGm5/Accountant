@@ -32,10 +32,10 @@
 
     public DateTime TransactionTime { get; set; }
 
-    public string TransactionDescription { get; set; }
+    public string? TransactionDescription { get; set; }
 
 
-    public string ErrorMessage { get; set; }
+    public string? ErrorMessage { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
@@ -46,7 +46,7 @@
 
             if (Finduser != null)
             {
-                TransactionDto = await PaymentServices.GetTransaction(Userid,TransactionId);
+                TransactionDto = await PaymentServices.GetTransaction(Userid, TransactionId);
 
                 TransactionAmount = TransactionDto.Amount;
                 TransactionTime = TransactionDto.TransactionTime;
@@ -67,17 +67,17 @@
 
     protected async void DeleteTransaction_Click()
     {
-        var DeleteTransaction =  await PaymentServices.DeleteTransaction(Userid, TransactionId);
+        var DeleteTransaction = await PaymentServices.DeleteTransaction(Userid, TransactionId);
         StateHasChanged();
 
-        if(DeleteTransaction != null)
+        if (DeleteTransaction != null)
         {
-            JS.InvokeVoidAsync("alert","Your Transaction Delete With Success !");
+            await JS.InvokeVoidAsync("alert", "Your Transaction Delete With Success !");
             NavigationManager.NavigateTo($"/UserMainPage/{Username}/{Password}");
         }
         else
         {
-            JS.InvokeVoidAsync("alert", "somthing went wrong while Delete Your Transaction");
+            await JS.InvokeVoidAsync("alert", "somthing went wrong while Delete Your Transaction");
         }
     }
 }

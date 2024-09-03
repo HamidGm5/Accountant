@@ -27,14 +27,14 @@ namespace Accountant.Web.Pages.LoanPages
         public int InstallmentCount { get; set; } = 0;
         public DateTime LastPayTime { get; set; } = DateTime.MinValue;
         public double Percentage { get; set; } = 0;
-        public double Remain { get; set; }
-        public bool NearToPay { get; set; }
+        public double Remain { get; set; } = 0.0;
+        public bool NearToPay { get; set; } 
 
-        public string DeleteURL { get; set; }
-        public string UpdateURL { get; set; }
-        public string InstallmentsURL { get; set; }
+        public string? DeleteURL { get; set; }
+        public string? UpdateURL { get; set; }
+        public string? InstallmentsURL { get; set; }
 
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
         protected override async Task OnParametersSetAsync()
         {
             try

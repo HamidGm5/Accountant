@@ -18,26 +18,26 @@ namespace Accountant.Web.Pages.UserPages
 
         public int userid { get; set; }
 
-        public string ErorMessage { get; set; }
+        public string? ErorMessage { get; set; }
 
 
-        protected void Login_Click()
+        protected async void Login_Click()
         {
-            CheckValue(Username, Password);
+            await CheckValue(Username, Password);
         }
 
-        protected bool CheckValue(string username, string password)
+        protected async Task<bool> CheckValue(string username, string password)
         {
             try
             {
                 if (username == null)
                 {
-                    JS.InvokeAsync<UserDto>("alert", "Your username it's null !");
+                    await JS.InvokeAsync<UserDto>("alert", "Your username it's null !");
                     return false;
                 }
                 else if (password == null)
                 {
-                    JS.InvokeAsync<UserDto>("alert", "Your password it's null !");
+                    await JS.InvokeAsync<UserDto>("alert", "Your password it's null !");
                     return false;
                 }
 

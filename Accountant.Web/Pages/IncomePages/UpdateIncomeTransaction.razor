@@ -32,18 +32,18 @@
 
     public DateTime TransactionTime { get; set; }
 
-    public string TransactionDescription { get; set; }
+    public string? TransactionDescription { get; set; }
 
-    public string MainPageUrl { get; set; }
+    public string? MainPageUrl { get; set; }
 
-    public string ErrorMessage { get; set; }
+    public string? ErrorMessage { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
         try
         {
             var Finduser = await userServices.Login(Username, Password);
-            Userid = (int)Finduser.Id;
+            Userid = Convert.ToInt32(Finduser.Id);
 
             if (Finduser != null)
             {
@@ -79,12 +79,12 @@
 
         if (UpdateTransaction != null)
         {
-            JS.InvokeVoidAsync("alert", " Your Transaction Update Record SuccessFuly");
+            await JS.InvokeVoidAsync("alert", " Your Transaction Update Record SuccessFuly");
             navigationManager.NavigateTo($"/UserMainPage/{Username}/{Password}");
         }
         else
         {
-            JS.InvokeVoidAsync("alert", "Somthing went wrong while saving your Update Transaction !");
+            await JS.InvokeVoidAsync("alert", "Somthing went wrong while saving your Update Transaction !");
         }
     }
 }

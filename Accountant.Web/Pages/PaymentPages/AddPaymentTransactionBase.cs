@@ -35,7 +35,7 @@ namespace Accountant.Web.Pages.PaymentPages
         public string? Descriptions { get; set; }
         public int Count { get; set; } = 1;
 
-        public string ErorMessage { get; set; }
+        public string? ErorMessage { get; set; }
 
         
         public async Task AddPayment_Click()

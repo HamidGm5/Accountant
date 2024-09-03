@@ -32,17 +32,17 @@
 
     public DateTime TransactionTime { get; set; }
 
-    public string TransactionDescription { get; set; }
+    public string? TransactionDescription { get; set; }
 
 
-    public string ErrorMessage { get; set; }
+    public string? ErrorMessage { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
         try
         {
             var Finduser = await userServices.Login(Username, Password);
-            Userid = (int)Finduser.Id;
+            Userid = Convert.ToInt32(Finduser.Id);
 
             if (Finduser != null)
             {
@@ -69,15 +69,15 @@
     {
         var deleteTransaction = await incomeServices.DeleteTransaction(Userid, TransactionId);
         StateHasChanged();
-        
+
         if (deleteTransaction != null)
         {
-            JS.InvokeVoidAsync("alert", "Your Transaction Delete With Success !");
+            await JS.InvokeVoidAsync("alert", "Your Transaction Delete With Success !");
             NavigationManager.NavigateTo($"/UserMainPage/{Username}/{Password}");
         }
         else
         {
-            JS.InvokeVoidAsync("alert", "somthing went wrong while Delete Your Transaction");
+            await JS.InvokeVoidAsync("alert", "somthing went wrong while Delete Your Transaction");
         }
     }
 }

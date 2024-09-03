@@ -26,11 +26,11 @@ namespace Accountant.Web.Pages.LoanPages
         public NavigationManager navigation { get; set; }
 
         public ICollection<LoanDto> Loans { get; set; }
-        public string AddNewLoanURL { get; set; }
-        public string UserMainPageURL { get; set; }
+        public string? AddNewLoanURL { get; set; }
+        public string? UserMainPageURL { get; set; }
         public UserDto UserResponse { get; set; }
 
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {

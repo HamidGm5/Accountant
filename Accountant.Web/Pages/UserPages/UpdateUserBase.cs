@@ -15,7 +15,7 @@ namespace Accountant.Web.Pages.UserPages
         [Inject]
         public IUserServices UserServices { get; set; }
 
-        public UserDto User { get; set; }
+        public UserDto? User { get; set; }
 
 
         public int userid { get; set; } = 0;

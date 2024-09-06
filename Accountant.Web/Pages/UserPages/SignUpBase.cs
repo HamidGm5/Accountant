@@ -13,16 +13,16 @@ namespace Accountant.Web.Pages.UserPages
         public NavigationManager navigationManager { get; set; }
         [Inject]
         public IJSRuntime JS { get; set; }
-        public UserDto NewUser { get; set; }
+       
+        public UserDto? NewUser { get; set; }
         public int userid { get; set; }
-        public string Username { get; set; } = "";
-        public string Password { get; set; } = "";
-        public string ConfirmPassword { get; set; } = "";
-        public string Email { get; set; } = "";
+        public string? Username { get; set; } 
+        public string? Password { get; set; }
+        public string? ConfirmPassword { get; set; }
+        public string? Email { get; set; }
         public string? ImageURL { get; set; }
 
         public string? ErorMessage { get; set; }
-        public string AlertMessage { get; set; } = "";
 
 
         protected async void AddNewUser_Click()

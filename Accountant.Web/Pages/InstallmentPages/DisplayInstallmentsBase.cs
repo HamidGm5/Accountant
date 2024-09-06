@@ -1,6 +1,7 @@
 ﻿using Accountant.Model.Dto;
 using Accountant.Web.Services.Contract;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Accountant.Web.Pages.InstallmentPages
 {
@@ -23,8 +24,10 @@ namespace Accountant.Web.Pages.InstallmentPages
         public IPaymentServices Paymentservices { get; set; }
         [Inject]
         public NavigationManager Navigation { get; set; }
+        [Inject]
+        public IJSRuntime JS { get; set; }
 
-        public async void PayInstallment(int ID)
+        public async Task PayInstallment(int ID)
         {
             var Response = await services.UpdatePay(ID);
 
@@ -41,7 +44,12 @@ namespace Accountant.Web.Pages.InstallmentPages
             if (Response && TransactionResponse != null)
             {
                 StateHasChanged();
+                await JS.InvokeVoidAsync("alert", "Your installment paid successfully !");
                 Navigation.NavigateTo(Navigation.Uri, true);
+            }
+            else
+            {
+                await JS.InvokeVoidAsync("alert", "something get wrong !");
             }
         }
     }

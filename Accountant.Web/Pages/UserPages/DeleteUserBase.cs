@@ -23,10 +23,10 @@ namespace Accountant.Web.Pages.UserPages
         [Inject]
         public ILoanServices LoanServices { get; set; }
 
-        public string Email { get; set; } = "";
+        public string? Email { get; set; }
         public int userid { get; set; } = 0;
 
-        public UserDto Finduser { get; set; }
+        public UserDto? Finduser { get; set; }
 
         public string? ErorMessage { get; set; }
 
@@ -39,7 +39,7 @@ namespace Accountant.Web.Pages.UserPages
                 if (Finduser != null)
                 {
                     Email = Finduser.Email;
-                    userid = (int)Finduser.Id;
+                    userid = Convert.ToInt32(Finduser.Id);
                 }
             }
 

@@ -15,6 +15,8 @@ namespace Accountant.Web.Pages.UserPages
 
         [Inject]
         public IJSRuntime JS { get; set; }
+        [Inject]
+        public NavigationManager Navigate { get; set; }
 
         public int userid { get; set; }
 
@@ -23,7 +25,10 @@ namespace Accountant.Web.Pages.UserPages
 
         protected async void Login_Click()
         {
-            await CheckValue(Username, Password);
+            if(await CheckValue(Username, Password))
+            {
+                Navigate.NavigateTo($"/UserMainPage/{Username}/{Password}");
+            }
         }
 
         protected async Task<bool> CheckValue(string username, string password)
@@ -35,7 +40,7 @@ namespace Accountant.Web.Pages.UserPages
                     await JS.InvokeAsync<UserDto>("alert", "Your username it's null !");
                     return false;
                 }
-                else if (password == null)
+                if (password == null)
                 {
                     await JS.InvokeAsync<UserDto>("alert", "Your password it's null !");
                     return false;

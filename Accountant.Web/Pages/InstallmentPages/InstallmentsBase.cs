@@ -24,9 +24,9 @@ namespace Accountant.Web.Pages.InstallmentPages
         [Inject]
         public NavigationManager navigate { get; set; }
 
-        public ICollection<InstallmentDto> Installments { get; set; }
-        public UserDto UserResponse { get; set; }
-        public LoanDto LoanResponse { get; set; }
+        public ICollection<InstallmentDto>? Installments { get; set; }
+        public UserDto? UserResponse { get; set; }
+        public LoanDto? LoanResponse { get; set; }
         public bool URLOK { get; set; }
 
         public string? ErrorMessage { get; set; }

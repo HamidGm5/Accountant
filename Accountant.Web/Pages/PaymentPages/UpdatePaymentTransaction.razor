@@ -42,7 +42,7 @@
         try
         {
             var Finduser = await userServices.Login(Username, Password);
-            Userid = (int)Finduser.Id;
+            Userid = Convert.ToInt32(Finduser.Id);
 
             if (Finduser != null)
             {

@@ -74,8 +74,11 @@ namespace Accountant.API.Repository
 
         public async Task<IncomeTransaction> IncomeTransaction(int userid, int transactionid)
         {
-            return await _context.IncomeTransactions.Where(it => it.User.Id == userid
+            var IncomeTransaction = await _context.IncomeTransactions.Where(it => it.User.Id == userid
                                   && it.Id == transactionid).FirstOrDefaultAsync();
+            if (IncomeTransaction == null)
+                return new IncomeTransaction();
+            return IncomeTransaction;
         }
 
         public async Task<ICollection<IncomeTransaction>> IncomeTransactions(int userid)
@@ -86,7 +89,7 @@ namespace Accountant.API.Repository
 
         public async Task<bool> Save()
         {
-            var saved = _context.SaveChanges();
+            var saved = await _context.SaveChangesAsync();
             return saved > 0 ? true : false;
         }
 
@@ -110,7 +113,7 @@ namespace Accountant.API.Repository
                 return FindTransaction;
             }
 
-            return null;
+            return new IncomeTransaction();
         }
     }
 }

@@ -54,12 +54,13 @@ namespace Accountant.API.Repository
         {
             var Transaction = await _context.PaymentTransactions.Where(pt => pt.User.Id == userid &&
                                                         pt.Id == transactionid).FirstOrDefaultAsync();
-            return Transaction;
+            return Transaction != null ? Transaction : new PaymentTransaction();
         }
 
         public async Task<ICollection<PaymentTransaction>> PaymentTransactions(int userid)
         {
-            return await _context.PaymentTransactions.Where(pt => pt.User.Id == userid).OrderBy(pt => pt.TransactionTime).ToListAsync();
+            return await _context.PaymentTransactions.Where(pt => pt.User.Id == userid).
+                OrderBy(pt => pt.TransactionTime).ToListAsync();
         }
 
         public async Task<bool> Save()

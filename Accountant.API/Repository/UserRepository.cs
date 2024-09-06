@@ -17,6 +17,7 @@ namespace Accountant.API.Repository
         {
             var users = await _context.Users.OrderBy(u => u.Id).ToListAsync();
             return users;
+
         }
 
 
@@ -45,14 +46,14 @@ namespace Accountant.API.Repository
                     }
                     else
                     {
-                        return null;
+                        return new User();
                     }
                 }
             }
 
             catch (Exception)
             {
-                return null;
+                return new User();
             }
         }
 
@@ -73,7 +74,7 @@ namespace Accountant.API.Repository
             }
             else
             {
-                return null;
+                return new User();
             }
         }
 
@@ -103,13 +104,13 @@ namespace Accountant.API.Repository
         public async Task<User> GetByUserName(string username)
         {
             var user = await _context.Users.Where(us => us.UserName.ToLower() == username.ToLower()).FirstOrDefaultAsync();
-            return user;
+            return user != null ? user : new User();
         }
 
         public async Task<User> GetUserById(int id)
         {
             var user = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
-            return user;
+            return user != null ? user : new User();
         }
     }// Class
 }

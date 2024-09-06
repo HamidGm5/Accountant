@@ -18,7 +18,7 @@ namespace Accountant.API.Repository
             try
             {
                 _context.Installments.AddRange(installments);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return true;
             }
             catch
@@ -31,7 +31,8 @@ namespace Accountant.API.Repository
         {
             var Installment = await _context.Installments.Where(i => i.ID == InstallmentID &&
                                                     i.loan.ID == LoanID).FirstOrDefaultAsync();
-            return Installment;
+
+            return Installment != null ? Installment : new Installment();
         }
 
         public async Task<ICollection<Installment>> GetInstallments()

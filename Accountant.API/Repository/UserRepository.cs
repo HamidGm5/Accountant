@@ -13,6 +13,7 @@ namespace Accountant.API.Repository
         {
             _context = context;
         }
+
         public async Task<ICollection<User>> GetAllUser()
         {
             var users = await _context.Users.OrderBy(u => u.Id).ToListAsync();
@@ -20,13 +21,15 @@ namespace Accountant.API.Repository
 
         }
 
-
         public async Task<bool> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
-            return await Save();
-
+            if (user != null)
+            {
+                _context.Users.Remove(user);
+                return await Save();
+            }
+            return false;
         }
 
         public async Task<User> Login(string username, string password)
@@ -36,7 +39,7 @@ namespace Accountant.API.Repository
                 var user = await _context.Users.Where(un => un.UserName.Trim().ToLower() == username.Trim().ToLower()).FirstOrDefaultAsync();
                 if (user == null)
                 {
-                    return null;
+                    return new User();
                 }
                 else
                 {
@@ -59,7 +62,7 @@ namespace Accountant.API.Repository
 
         public async Task<bool> Save()
         {
-            var saved = _context.SaveChanges();
+            var saved = await _context.SaveChangesAsync();
             return saved > 0 ? true : false;
         }
 

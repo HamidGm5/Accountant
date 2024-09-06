@@ -20,7 +20,7 @@ namespace Accountant.Web.Services
                 var Response = await _client.GetAsync($"/api/Installment/{LoanID}/{InstallmentID}");
                 if (Response == null)
                 {
-                    return null;
+                    return new InstallmentDto();
                 }
                 else
                 {
@@ -29,7 +29,7 @@ namespace Accountant.Web.Services
             }
             catch
             {
-                return null;
+                return new InstallmentDto();
             }
         }
 
@@ -50,7 +50,7 @@ namespace Accountant.Web.Services
             }
             catch
             {
-                return null;
+                return new List<InstallmentDto>();
             }
         }
 

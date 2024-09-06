@@ -50,7 +50,7 @@ namespace Accountant.Web.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return default(PaymentTransactionDto);
+                        return new PaymentTransactionDto();
                     }
 
                     return await response.Content.ReadFromJsonAsync<PaymentTransactionDto>();  //Exception (Controller Ok)    
@@ -80,7 +80,7 @@ namespace Accountant.Web.Services
                     return await response.Content.ReadFromJsonAsync<PaymentTransactionDto>();
                 }
 
-                return default(PaymentTransactionDto);
+                return new PaymentTransactionDto();
             }
 
             catch (Exception)
@@ -100,7 +100,7 @@ namespace Accountant.Web.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return default(PaymentTransactionDto);
+                        return new PaymentTransactionDto();
                     }
 
                     return await response.Content.ReadFromJsonAsync<PaymentTransactionDto>();
@@ -130,7 +130,7 @@ namespace Accountant.Web.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return default(PaymentTransactionDto);
+                        return new PaymentTransactionDto();
                     }
                     return await response.Content.ReadFromJsonAsync<PaymentTransactionDto>();
                 }
@@ -191,7 +191,7 @@ namespace Accountant.Web.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return default(PaymentTransactionDto);
+                        return new PaymentTransactionDto();
                     }
                     return await response.Content.ReadFromJsonAsync<PaymentTransactionDto>();   //Exception
                 }

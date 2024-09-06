@@ -48,7 +48,7 @@ namespace Accountant.Web.Services
             {
                 if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                 {
-                    return default(IncomeTransactionDto);
+                    return new IncomeTransactionDto();
                 }
                 return await response.Content.ReadFromJsonAsync<IncomeTransactionDto>();
             }
@@ -69,7 +69,7 @@ namespace Accountant.Web.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return default(IncomeTransactionDto);
+                        return new IncomeTransactionDto();
                     }
                     return await response.Content.ReadFromJsonAsync<IncomeTransactionDto>(); // Exception
                 }
@@ -98,7 +98,7 @@ namespace Accountant.Web.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return default(IncomeTransactionDto);
+                        return new IncomeTransactionDto();
                     }
 
                     return await response.Content.ReadFromJsonAsync<IncomeTransactionDto>();
@@ -128,7 +128,7 @@ namespace Accountant.Web.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return default(IncomeTransactionDto);
+                        return new IncomeTransactionDto();
                     }
                     return await response.Content.ReadFromJsonAsync<IncomeTransactionDto>();
                 }
@@ -190,7 +190,7 @@ namespace Accountant.Web.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return default(IncomeTransactionDto);
+                        return new IncomeTransactionDto();
                     }
                     return await response.Content.ReadFromJsonAsync<IncomeTransactionDto>(); //Exception
                 }

@@ -27,7 +27,7 @@ namespace Accountant.Web.Services
                 {
                     return await response.Content.ReadFromJsonAsync<UserDto>();
                 }
-                return default(UserDto);
+                return new UserDto();
             }
             catch (Exception)
             {
@@ -45,7 +45,7 @@ namespace Accountant.Web.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return null;
+                        return new UserDto();
                     }
                     return await response.Content.ReadFromJsonAsync<UserDto>();
                 }
@@ -72,7 +72,7 @@ namespace Accountant.Web.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return null;
+                        return new UserDto();
                     }
                     return await response.Content.ReadFromJsonAsync<UserDto>();
                 }
@@ -101,7 +101,7 @@ namespace Accountant.Web.Services
             {
                 return await response.Content.ReadFromJsonAsync<UserDto>();
             }
-            return null;
+            return new UserDto();
         }
     }
 }

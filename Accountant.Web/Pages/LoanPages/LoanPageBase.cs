@@ -25,10 +25,10 @@ namespace Accountant.Web.Pages.LoanPages
         [Inject]
         public NavigationManager navigation { get; set; }
 
-        public ICollection<LoanDto> Loans { get; set; }
+        public ICollection<LoanDto>? Loans { get; set; }
         public string? AddNewLoanURL { get; set; }
-        public string? UserMainPageURL { get; set; }
-        public UserDto UserResponse { get; set; }
+
+        public UserDto? UserResponse { get; set; }
 
         public string? ErrorMessage { get; set; }
 
@@ -40,7 +40,6 @@ namespace Accountant.Web.Pages.LoanPages
 
                 Loans = await services.GetUserLoan(UserID);
                 AddNewLoanURL = $"/AddNewLoan/{UserID}/{Username}/{Password}";
-                UserMainPageURL = $"/UserMainPage/{Username}/{Password}";
             }
             catch (Exception ex)
             {
@@ -62,6 +61,7 @@ namespace Accountant.Web.Pages.LoanPages
                         await js.InvokeVoidAsync("alert", "your Loans Deleted successfuly!");
 
                         StateHasChanged();
+                        string UserMainPageURL = $"/UserMainPage/{Username}/{Password}";
                         navigation.NavigateTo(UserMainPageURL);
                     }
                     else

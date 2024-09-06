@@ -35,7 +35,7 @@ namespace Accountant.Web.Pages.IncomePages
         public string? Descriptions { get; set; }
         public int Count { get; set; } = 1;
 
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
 
         public async Task AddIncome_Click()
         {

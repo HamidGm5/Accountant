@@ -1,0 +1,40 @@
+﻿@page "/SuggestionPage/{Username}/{Password}"
+
+@inherits SuggestionBase
+
+<div class="receiver-box">
+
+    <lable>
+        Enter your salary in Year :
+    </lable>
+
+    <input class="salary-input" type="number" step="0.1" @bind="@IncomeInYear" />
+
+    <br />
+    <br />
+
+    <button class="btn-submit" @onclick="() => Calculate_Click()">
+        Calculate My Suggestion
+    </button>
+</div>
+
+
+
+@if (Tax == 0 && ErrorMessage == null && Models.Count < 2)
+{
+
+}
+else if (ErrorMessage != null)
+{
+    <DisplayEror ErorMessage="@ErrorMessage"></DisplayEror>
+}
+else
+{
+    <br />
+    <h2 class="title"> Suggestion In Year </h2>
+    <SuggestionDisplay models="@Models"></SuggestionDisplay>
+    
+    <br/>
+    <h2 class="title"> Suggestion In Month </h2>
+    <SuggestionDisplay models="@ModelsForMonth"></SuggestionDisplay>
+}

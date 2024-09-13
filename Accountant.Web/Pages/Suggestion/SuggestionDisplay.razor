@@ -1,0 +1,43 @@
+﻿@code {
+    [Parameter]
+    public ICollection<SuggestionModel> models { get; set; }
+}
+<div class="content">
+    @foreach (var model in models)
+    {
+        <div class="suggestion-box">
+            <div class="consumption-name">
+                <h1> @model.Name </h1>
+            </div>
+            <div class="tax-box">
+                <h2>
+                    <span class="oi oi-dollar"></span> Tax: @model.Tax.ToString("00.00")
+                </h2>
+            </div>
+            <br />
+            <div class="home-box">
+                <h2>
+                    <span class="oi oi-home"></span> Home Rent: @model.HomeRent.ToString("00.00")
+                </h2>
+            </div>
+            <br />
+            <div class="edible-box">
+                <h2>
+                    <span class="oi oi-pie-chart"></span> Edible: @model.Edible.ToString("00.00")
+                </h2>
+            </div>
+            <br />
+            <div class="recreation-box">
+                <h2>
+                    <span class="oi oi-wifi"></span> Recreation: @model.Recreation.ToString("00.00")
+                </h2>
+            </div>
+            <br />
+            <div class="saving-box">
+                <h2>
+                    <span class="oi oi-credit-card"></span> Saving : @model.Saving.ToString("00.00")
+                </h2>
+            </div>
+        </div>
+    }
+</div>

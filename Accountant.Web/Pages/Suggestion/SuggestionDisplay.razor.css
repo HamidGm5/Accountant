@@ -1,0 +1,29 @@
+﻿.content {
+    display: flex;
+}
+
+.suggestion-box {
+    border: 6px solid rgb(110, 14, 174);
+    background-color: rgb(131, 76, 168);
+    width: 30%;
+    margin: 10px 3% 20px 2%;
+    border-radius: 12px;
+    text-align: justify;
+    padding: 5px 8px;
+    flex: 1;
+}
+
+.consumption-name {
+    color: black;
+    font-weight: bold;
+    font-family: Arial;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.tax-box, .home-box, .edible-box, .recreation-box, .saving-box {
+    border: 3px solid rgb(109, 0, 173);
+    background-color: rgb(97, 55, 125);
+    border-radius: 30px;
+    padding: 4px 8px;
+}

@@ -1,0 +1,48 @@
+﻿.receiver-box {
+    border: 8px solid rgb(210, 0, 62);
+    border-radius: 15px;
+    width: 50%;
+    margin-top: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+lable {
+    font-size: 1.2rem;
+    font-family: Arial;
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+.salary-input {
+    width: 20%;
+    border-radius: 13px;
+    font-family: Arial;
+    font-size: 1.12rem;
+    font-weight: 500;
+}
+
+.btn-submit {
+    font-family: Arial;
+    font-size: 1.3rem;
+    background-color: rgb(210, 0, 62);
+    color: rgb(230, 230, 230);
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+
+    .btn-submit:hover {
+        border-radius: 18px;
+        color: rgb(210, 0, 62);
+        background-color: rgb(230, 230, 230);
+        font-weight: 500;
+    }
+
+.title {
+    text-align: center;
+    font-family: Arial;
+    font-size: 2rem;
+    font-weight: 800;
+}

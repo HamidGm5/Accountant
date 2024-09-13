@@ -38,6 +38,7 @@ namespace Accountant.Web.Pages.UserPages
         public string DeleteUserURL { get; set; } = "";
         public string UpdateUserURL { get; set; } = "";
         public string LoanURL { get; set; } = "";
+        public string SuggestionURL { get; set; } = "";
         public string? ErrorMessage { get; set; }
 
         protected async override Task OnParametersSetAsync()
@@ -61,6 +62,7 @@ namespace Accountant.Web.Pages.UserPages
                 DeleteUserURL = $"DeleteUser/{username}/{password}";
                 UpdateUserURL = $"UpdateUser/{username}/{password}";
                 LoanURL = $"Loans/{userid}/{username}/{password}";
+                SuggestionURL = $"SuggestionPage/{username}/{password}";
             }
 
             catch (Exception ex)

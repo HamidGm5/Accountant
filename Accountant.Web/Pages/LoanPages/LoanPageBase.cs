@@ -42,6 +42,7 @@ namespace Accountant.Web.Pages.LoanPages
 
                 Loans = await services.GetUserLoan(UserID);
                 AddNewLoanURL = $"/AddNewLoan/{UserID}/{Username}/{Password}";
+                UserMainPageURL = $"/UserMainPage/{Username}/{Password}";
             }
             catch (Exception ex)
             {
@@ -63,7 +64,6 @@ namespace Accountant.Web.Pages.LoanPages
                         await js.InvokeVoidAsync("alert", "your Loans Deleted successfuly!");
 
                         StateHasChanged();
-                        UserMainPageURL = $"/UserMainPage/{Username}/{Password}";
                         navigation.NavigateTo(UserMainPageURL);
                     }
                     else

@@ -15,7 +15,7 @@ namespace Accountant.Web.Pages.UserPages
         [Inject]
         public IUserServices UserServices { get; set; }
 
-        public UserDto? User { get; set; }
+        public UserDto User { get; set; }
 
 
         public int userid { get; set; } = 0;
@@ -23,22 +23,28 @@ namespace Accountant.Web.Pages.UserPages
         public string password { get; set; } = "";
         public string confirmPassword { get; set; } = "";
         public string email { get; set; } = "";
-        public string? imgUrl { get; set; } = "";
+        public string? imgUrl { get; set; }
 
-        public string ErorMessage { get; set; } = "";
+        public string? ErrorMessage { get; set; }
 
 
         protected async override Task OnParametersSetAsync()
         {
-            User = await UserServices.Login(Username, Password);
+            try
+            {
+                User = await UserServices.Login(Username, Password);
 
-            username = User.UserName;
-            password = User.Password;
-            email = User.Email;
-            confirmPassword = User.Password;
-            imgUrl = User.ImgURL;
+                username = User.UserName;
+                password = User.Password;
+                email = User.Email;
+                confirmPassword = User.Password;
+                imgUrl = User.ImgURL;
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
         }
-
 
         protected void UpdateUser_Click()
         {
@@ -61,13 +67,13 @@ namespace Accountant.Web.Pages.UserPages
 
                 else
                 {
-                    ErorMessage = "Your Password And Confirm Password Should Be Exactly Match !";
+                    ErrorMessage = "Your Password And Confirm Password Should Be Exactly Match !";
                 }
             }
 
             else
             {
-                ErorMessage = "Your Account is Not Found !";
+                ErrorMessage = "Your Account is Not Found !";
             }
         }
 

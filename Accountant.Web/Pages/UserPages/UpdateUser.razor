@@ -1,14 +1,14 @@
 ﻿@page "/UpdateUser/{Username}/{Password}"
 @inherits UpdateUserBase
 
-@if (User == null && ErorMessage == null)
+@if (User == null && ErrorMessage == null)
 {
     <DisplaySpinner />
 }
 
-else if (ErorMessage != null)
+else if (ErrorMessage != null)
 {
-    <DisplayEror ErorMessage="@ErorMessage"></DisplayEror>
+    <DisplayEror ErorMessage="@ErrorMessage"></DisplayEror>
 }
 
 else
@@ -47,7 +47,7 @@ else
             <lable class="lbl">
                 Your Image :
             </lable>
-            <input type="file" @bind="@imgUrl" class="choose-btn" />
+            <input type="file" class="choose-btn"/>
             <br />
 
             <a class="btn btn-update" @onclick="() => UpdateUser_Click()" href="/Login">

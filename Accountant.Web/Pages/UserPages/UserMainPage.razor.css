@@ -54,3 +54,10 @@
     margin-top: auto;
     padding : 10px;
 }
+.btn-suggestion {
+    background-color: rgb(159, 211, 0);
+    color: rgb(0, 0, 0);
+    margin-left: 40px;
+    margin-top: auto;
+    padding: 10px;
+}

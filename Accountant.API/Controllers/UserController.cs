@@ -61,7 +61,7 @@ namespace Accountant.API.Controllers
             {
                 var Signuser = await _repository.GetByUserName(user.UserName);
 
-                if (Signuser != null)
+                if (Signuser.Id != 0)
                 {
                     return BadRequest("This Username taken in past !");
                 }

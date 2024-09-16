@@ -34,7 +34,5 @@ namespace Accountant.API.Data
                 .IsRequired()
             );
         }
-
-
     }
 }

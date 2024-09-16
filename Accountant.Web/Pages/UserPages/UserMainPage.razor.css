@@ -19,48 +19,65 @@
     transition: ease-in-out .3s;
 }
 
+
 .Update-User {
     background-color: rgb(180, 93, 23);
     color: rgb(196, 197, 218);
-    font-weight: 800;
-    margin-left: 0;
+    margin-left: 10px;
+    margin-right:40px;
+    font-size: 1.2rem;
     margin-top: auto;
+    padding: 10px;
+    font-weight: 700;
 }
 
 .Delete-User {
     background-color: rgb(135, 0, 0);
-    font-weight: 800;
-    color: rgb(196, 197, 218);
-    margin-right: 30px;
+    color: rgb(196, 197, 218); 
+    font-size: 1.2rem;
+    margin-right: 40px;
+    margin-top: auto;
+    padding: 10px;
+    font-weight: 700;
 }
 
 .btn-addpayment {
     background-color: rgb(116, 0, 137, 0.89);
     color: rgb(209, 209, 0);
+    font-size: 1.2rem;
+    margin-right: 40px;
     margin-top: auto;
+    padding: 10px;
+    font-weight: 700;
 }
 
 .btn-addincome {
     background-color: rgb(209, 209, 0);
     color: rgb(80, 0, 95, 0.89);
-    margin-left: 10px;
+    font-size: 1.2rem;
+    margin-right: 40px;
     margin-top: auto;
+    padding: 10px;
+    font-weight: 700;
 }
 
 .btn-Loan {
     color: rgb(209, 209, 209);
     background-color: rgb(0, 5, 139);
-    margin-left: 40px;
-    margin-top: auto;
-    padding: 10px;
-}
-
-.btn-suggestion {
-    background-color: rgb(159, 211, 0);
     font-size: 1.2rem;
-    color: rgb(0, 0, 0);
-    margin-left: 40px;
+    margin-right: 40px;
     margin-top: auto;
     padding: 10px;
     font-weight: 700;
 }
+
+.btn-suggestion {
+    background-color: rgb(159, 211, 0);
+    color: rgb(0, 0, 0);
+    font-size: 1.2rem;
+    margin-right: 40px;
+    margin-top: auto;
+    padding: 10px;
+    font-weight: 700;
+}
+

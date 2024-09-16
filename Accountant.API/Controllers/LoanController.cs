@@ -242,7 +242,7 @@ namespace Accountant.API.Controllers
                 var DeleteLoan = await _repository.DeleteAllLoan(UserID);
 
                 if (DeleteLoan)
-                    return Ok("successfuly");
+                    return Ok("successfully");
                 else
                     return NotFound();
 

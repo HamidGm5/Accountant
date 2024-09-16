@@ -35,6 +35,7 @@ namespace Accountant.API.Controllers
             }
             catch
             {
+                //Log Exception
                 return BadRequest();
             }
         }
@@ -56,6 +57,7 @@ namespace Accountant.API.Controllers
             }
             catch
             {
+                //Log Exception
                 return BadRequest();
             }
         }
@@ -80,6 +82,7 @@ namespace Accountant.API.Controllers
             }
             catch
             {
+                //Log Exception
                 return BadRequest();
             }
         }
@@ -109,6 +112,7 @@ namespace Accountant.API.Controllers
             }
             catch
             {
+                //Log Exception
                 return BadRequest();
             }
         }

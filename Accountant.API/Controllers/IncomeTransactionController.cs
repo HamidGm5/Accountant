@@ -40,12 +40,13 @@ namespace Accountant.API.Controllers
 
             catch (Exception)
             {
+                //Log Exception
                 throw;
             }
         }
 
 
-        [HttpGet("{Userid}")]
+        [HttpGet("{Userid:int}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -72,12 +73,13 @@ namespace Accountant.API.Controllers
 
             catch (Exception)
             {
+                //Log Exception
                 throw;
             }
         }
 
 
-        [HttpGet("{Userid}/{Transactionid}")]
+        [HttpGet("{Userid:int}/{Transactionid:int}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public async Task<ActionResult<IncomeTransactionDto>> GetTransaction(int Userid, int Transactionid)
@@ -100,12 +102,15 @@ namespace Accountant.API.Controllers
 
             catch (Exception)
             {
+                //Log Exception
                 throw;
             }
         }
 
 
         [HttpPost]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<ActionResult<IncomeTransactionDto>> AddIncomeTransaction([FromBody] AddTransactionsStandardDto TransactionStd)
         {
             try
@@ -140,21 +145,22 @@ namespace Accountant.API.Controllers
 
             catch (Exception)
             {
+                //Log Exception
                 throw;
             }
         }
 
-        [HttpPost("{Count:int}" , Name ="AddMultiIncomes")]
+        [HttpPost("{Count:int}", Name = "AddMultiIncomes")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<bool>> AddMultiIncomes([FromBody] AddTransactionsStandardDto transaction , int Count)
+        public async Task<ActionResult<bool>> AddMultiIncomes([FromBody] AddTransactionsStandardDto transaction, int Count)
         {
             try
             {
                 if (await _userRepository.UserExists(transaction.Userid))
                 {
-                    if (ModelState.IsValid) 
+                    if (ModelState.IsValid)
                     {
                         var TransactionMap = _mapper.Map<IncomeTransaction>(transaction);
                         TransactionMap.User = await _userRepository.GetUserById(transaction.Userid);
@@ -162,7 +168,7 @@ namespace Accountant.API.Controllers
                         List<IncomeTransaction> incomeTransactions = new List<IncomeTransaction>();
                         incomeTransactions.AddRange(Enumerable.Repeat(TransactionMap, Count));
 
-                        if(!await _repository.AddMultiIncomes(incomeTransactions))
+                        if (!await _repository.AddMultiIncomes(incomeTransactions))
                         {
                             return BadRequest();
                         }
@@ -180,12 +186,16 @@ namespace Accountant.API.Controllers
             }
             catch
             {
+                //Log Exception
                 throw;
             }
         }
 
 
         [HttpPatch("{UserId:int}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<IncomeTransactionDto>> UpdateTransaction(int UserId,
             [FromBody] IncomeTransactionDto transactionDto)
         {
@@ -210,7 +220,7 @@ namespace Accountant.API.Controllers
 
                         var UpdateTransaction = await _repository.UpdateIncomeTransactioin(TransactionMap);
 
-                        if (UpdateTransaction != null) 
+                        if (UpdateTransaction != null)
                         {
                             return Ok(transactionDto);
                         }
@@ -229,38 +239,59 @@ namespace Accountant.API.Controllers
 
 
         [HttpDelete("{Transactionid}/{Userid}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<IncomeTransactionDto>> DeleteIncomeTransaction(int Transactionid, int Userid)
         {
-            if (await _repository.IncomeExists(Transactionid))
+            try
             {
-                var transaction = await _repository.IncomeTransaction(Userid, Transactionid);
+                if (await _repository.IncomeExists(Transactionid))
+                {
+                    var transaction = await _repository.IncomeTransaction(Userid, Transactionid);
 
-                if (transaction == null)
-                {
-                    return NotFound(ModelState);
+                    if (transaction == null)
+                    {
+                        return NotFound(ModelState);
+                    }
+                    else
+                    {
+                        await _repository.DeleteIncomeTransaction(transaction);
+                        var transactionMap = _mapper.Map<IncomeTransactionDto>(transaction);
+                        return Ok(transactionMap);
+                    }
                 }
-                else
-                {
-                    await _repository.DeleteIncomeTransaction(transaction);
-                    var transactionMap = _mapper.Map<IncomeTransactionDto>(transaction);
-                    return Ok(transactionMap);
-                }
+
+                return BadRequest(ModelState);
+            }
+            catch (Exception)
+            {
+                //Log Exception
+                throw;
             }
 
-            return BadRequest(ModelState);
         }
 
 
         [HttpDelete("{Userid}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<ActionResult<IncomeTransactionDto>> DeleteIncomeTransactions(int Userid)
         {
-            if (!await (_repository.DeleteIncomeTransactions(Userid)))
+            try
             {
-                return BadRequest(ModelState);
+                if (!await _repository.DeleteIncomeTransactions(Userid))
+                {
+                    return BadRequest(ModelState);
+                }
+
+                return Ok("SuccessFully !");
             }
-
-
-            return Ok("SuccessFuly !");
+            catch (Exception)
+            {
+                //Log Exception
+                throw;
+            }
 
         }
 

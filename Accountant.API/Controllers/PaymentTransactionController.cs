@@ -26,6 +26,7 @@ namespace Accountant.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<ActionResult<ICollection<PaymentTransactionDto>>> GetAllTransaction()
         {
             try
@@ -46,7 +47,6 @@ namespace Accountant.API.Controllers
 
         [HttpGet("{Userid}")]
         [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public async Task<ActionResult<ICollection<PaymentTransactionDto>>> GetUserTransactions(int Userid) // Mapper Check
         {
@@ -78,6 +78,7 @@ namespace Accountant.API.Controllers
         [HttpGet("{Userid}/{Transactionid}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<PaymentTransactionDto>> GetTransaction(int Userid, int Transactionid)
         {
             try
@@ -104,6 +105,8 @@ namespace Accountant.API.Controllers
 
 
         [HttpPost]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<ActionResult<PaymentTransactionDto>> AddPaymentTransaction([FromBody] AddTransactionsStandardDto paymentsStandard)                                             // From Query
         {
             try
@@ -182,12 +185,14 @@ namespace Accountant.API.Controllers
         }
 
         [HttpPatch("{userid:int}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<ActionResult<PaymentTransactionDto>> UpdateTransaction(int userid,
             [FromBody] PaymentTransactionDto transactionDto)
         {
             try
             {
-                var transactionFind = await _repository.PaymentTransaction(userid, (int)transactionDto.Id);         //Look Like (Ok)
+                var transactionFind = await _repository.PaymentTransaction(userid, transactionDto.Id);
 
                 if (transactionFind == null)
                 {
@@ -227,6 +232,8 @@ namespace Accountant.API.Controllers
         }
 
         [HttpDelete("{Userid:int}/{Transactionid:int}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<PaymentTransactionDto>> DeletePayTransaction(int Userid, int Transactionid)
         {
             try
@@ -243,13 +250,10 @@ namespace Accountant.API.Controllers
                     var transactionMap = _mapper.Map<PaymentTransactionDto>(transaction);
                     return Ok(transactionMap);
                 }
-
-                return BadRequest(ModelState);
             }
 
             catch (Exception)
             {
-
                 throw;
             }
 
@@ -257,6 +261,8 @@ namespace Accountant.API.Controllers
 
 
         [HttpDelete("{Userid}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<ActionResult<PaymentTransactionDto>> DeletePayTransaction(int Userid)
         {
             if (await (_repository.DeletePaymentTransactions(Userid)))
@@ -266,7 +272,7 @@ namespace Accountant.API.Controllers
 
             else
             {
-                return Ok("SuccessFuly !");
+                return Ok("SuccessFully !");
             }
 
         }

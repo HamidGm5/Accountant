@@ -20,6 +20,7 @@ namespace Accountant.API.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(200)]
         public async Task<ActionResult<UserDto>> GetAllUser()
         {
             var users = await _repository.GetAllUser();
@@ -27,57 +28,82 @@ namespace Accountant.API.Controllers
         }
 
         [HttpGet("{username}/{password}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+
         public async Task<ActionResult<UserDto>> LoginUser(string username, string password)
         {
-            var user = await _repository.Login(username, password);
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
-            else
-            {
-                return Ok(user);
-            }
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<UserDto>> SignUpUser([FromBody] UserDto user)
-        {
-            var Signuser = await _repository.GetByUserName(user.UserName);
-
-            if (Signuser != null)
-            {
-                return BadRequest("This Username taken in past !");
-            }
-            else
-            {
+                var user = await _repository.Login(username, password);
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 }
-
                 else
                 {
-                    var newuser = _mapper.Map<User>(user);
+                    return Ok(user);
+                }
+            }
+            catch (Exception)
+            {
+                //Log Exception
+                throw;
+            }
+        }
 
-                    var SignUser = await _repository.SignUp(newuser);
+        [HttpPost]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult<UserDto>> SignUpUser([FromBody] UserDto user)
+        {
+            try
+            {
+                var Signuser = await _repository.GetByUserName(user.UserName);
 
-                    if (SignUser != null)
+                if (Signuser != null)
+                {
+                    return BadRequest("This Username taken in past !");
+                }
+                else
+                {
+                    if (!ModelState.IsValid)
                     {
-                        var usermap = _mapper.Map<UserDto>(newuser);
-                        return Ok(usermap);
+                        return BadRequest(ModelState);
                     }
 
                     else
                     {
-                        return BadRequest(ModelState);
+                        var newuser = _mapper.Map<User>(user);
+
+                        var SignUser = await _repository.SignUp(newuser);
+
+                        if (SignUser != null)
+                        {
+                            var usermap = _mapper.Map<UserDto>(newuser);
+                            return Ok(usermap);
+                        }
+
+                        else
+                        {
+                            return BadRequest(ModelState);
+                        }
                     }
                 }
+            }
+            catch (Exception)
+            {
+                //Log Exception
+                throw;
             }
         }
 
 
         [HttpPut("{userid}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+
         public async Task<ActionResult<UserDto>> UpdateUser(int userid, [FromBody] UserDto userdto)
         {
             try
@@ -95,36 +121,47 @@ namespace Accountant.API.Controllers
 
                 if (!await _repository.UpdateUser(userid, userMap))
                 {
-                    ModelState.AddModelError("", "Somthings Went Wrong While Updating !");
+                    ModelState.AddModelError("", "Somethings Went Wrong While Updating !");
                     return StatusCode(500, ModelState);
                 }
-                return Ok("Succefuly !");
+                return Ok("Successfully!");
             }
 
             catch (Exception)
             {
-                //Log Excepsion
+                //Log Exception
                 throw;
             }
 
         }
 
         [HttpDelete("{userid}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<UserDto>> DeleteUser(int userid)
         {
-            var delUser = await _repository.UserExists(userid);
-            if (!delUser)
+            try
             {
-                return NotFound();
-            }
-            var finduser = await _repository.GetUserById(userid);
-            if (finduser == null)
-            {
-                return BadRequest("Somthing went Wrong While deleting !");
-            }
-            _repository.DeleteUser(userid);
+                var delUser = await _repository.UserExists(userid);
+                if (!delUser)
+                {
+                    return NotFound();
+                }
+                var finduser = await _repository.GetUserById(userid);
+                if (finduser == null)
+                {
+                    return BadRequest("Somthing went Wrong While deleting !");
+                }
+                await _repository.DeleteUser(userid);
 
-            return Ok("SuccessFully !");
+                return Ok("SuccessFully!");
+            }
+            catch (Exception)
+            {
+                //Log Exception
+                throw;
+            }
         }
 
     } //Class

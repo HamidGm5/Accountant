@@ -57,10 +57,14 @@
     </div>
     <div class="m-4">
         <a>
-            <a class="btn fw-bolder p-2" @onclick="() => AddNewUser_Click() " type="submit"> Click For SignUp </a>
+@*             <a class="btn fw-bolder p-2" @onclick="() => AddNewUser_Click()" type="submit">
+                Click For SignUp
+            </a> 
+*@
+            <button class="btn fw-bolder p-2" @onclick="()=>AddNewUser_Click()" disabled="@IsDisabled">
+                Click For SignUp
+            </button>
         </a>
     </div>
-
-
 </div>
 

@@ -23,20 +23,21 @@ label {
     color: rgb(103, 0, 121);
 }
 
-a {
+button {
     background-color: yellow;
     color: purple;
-    font-weight: 700;
+    font-weight: 800;
     margin: auto;
     transition: ease-in-out .3s;
+    height: 100%;
 }
 
-    a:hover {
+    button:hover {
         background-color: rgb(103, 0, 121);
         color: rgb(255, 216, 0);
     }
 
-    a:focus {
+    button:focus {
         background-color: rgb(103, 0, 121);
         color: rgb(255, 216, 0);
     }

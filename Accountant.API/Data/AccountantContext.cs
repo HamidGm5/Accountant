@@ -16,7 +16,7 @@ namespace Accountant.API.Data
         public DbSet<PaymentTransaction> PaymentTransactions { get; set; }
         public DbSet<Loan> Loans { get; set; }
         public DbSet<Installment> Installments { get; set; }
-
+        public DbSet<Admin> Admins { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

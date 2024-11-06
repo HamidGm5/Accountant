@@ -30,6 +30,7 @@ builder.Services.AddScoped<IPaymentTransactionRepository, PaymentTransactionRepo
 builder.Services.AddScoped<IIncomeTransactionRepository, IncomeTransactionRepository>();
 builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 builder.Services.AddScoped<IinstallmentRepository, InstallmentRepository>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<InstallmentBusiness>();
 builder.Services.AddScoped<LoanBusiness>();
 var app = builder.Build();

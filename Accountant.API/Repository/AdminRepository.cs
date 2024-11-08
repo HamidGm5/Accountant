@@ -15,11 +15,11 @@ namespace Accountant.API.Repository
             _context = context;
         }
 
-        public async Task<bool> DeleteUser(string spec)
+        public async Task<bool> DeleteUser(string Email)
         {
             try
             {
-                var deleteUser = await _context.Users.Where(x => x.UserName == spec || x.Email == spec).FirstOrDefaultAsync();
+                var deleteUser = await _context.Users.Where(x => x.Email == Email || x.Email == Email).FirstOrDefaultAsync();
                 if (deleteUser != null)
                 {
                     _context.Users.Remove(deleteUser);

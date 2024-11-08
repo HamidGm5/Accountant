@@ -114,14 +114,14 @@ namespace Accountant.API.Controllers
             }
         }
 
-        [HttpDelete("{spec}")]
+        [HttpDelete("{Email}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<bool>> DeleteUser(string spec)
+        public async Task<ActionResult<bool>> DeleteUser(string Email)
         {
             try
             {
-                var delete = await _repository.DeleteUser(spec);
+                var delete = await _repository.DeleteUser(Email);
                 if (delete)
                     return Ok("User Deleted !");
                 return BadRequest();

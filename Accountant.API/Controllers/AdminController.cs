@@ -41,7 +41,7 @@ namespace Accountant.API.Controllers
             try
             {
                 var Admin = await _repository.GetAdminById(ID);
-                if (Admin == null)
+                if (Admin == new Admin())
                 {
                     return NotFound();
                 }
@@ -63,7 +63,7 @@ namespace Accountant.API.Controllers
             try
             {
                 var user = await _repository.GetUserByUsernameOrEmail(spec);
-                if (user == null)
+                if (user == new User())
                     return NotFound();
 
                 var UserMap = _mapper.Map<UserDto>(user);
@@ -85,7 +85,7 @@ namespace Accountant.API.Controllers
             try
             {
                 var admin = await _repository.loginAdmin(AdminSpec, password);
-                if (admin == null)
+                if (admin == new Admin())
                     return NotFound();
                 return Ok(admin);
             }

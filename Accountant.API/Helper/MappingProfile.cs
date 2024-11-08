@@ -22,6 +22,10 @@ namespace Accountant.API.Helper
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
 
+            //Admin
+            CreateMap<Admin, AdminDto>();
+            CreateMap<AdminDto, Admin>();
+
 
             //Income Transaction
             CreateMap<IncomeTransaction, IncomeTransactionDto>();

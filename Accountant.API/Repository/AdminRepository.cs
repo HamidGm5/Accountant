@@ -30,21 +30,7 @@ namespace Accountant.API.Repository
                 }
                 return false;
             }
-            catch (Exception ex) 
-            {
-                // log exception
-                throw;
-            }
-        }
-
-        public async Task<Admin> GetAdminByAlias(string AliasName)
-        {
-            try
-            {
-                var Admin = await _context.Admins.Where(an => an.AdminAlias == AliasName).FirstOrDefaultAsync();
-                return Admin;
-            }
-            catch (Exception ex) 
+            catch (Exception)
             {
                 // log exception
                 throw;
@@ -56,9 +42,9 @@ namespace Accountant.API.Repository
             try
             {
                 var Admin = await _context.Admins.Where(ad => ad.Id == id).FirstOrDefaultAsync();
-                return Admin;
+                return new Admin();
             }
-            catch (Exception) 
+            catch (Exception)
             {
                 //log exception
                 throw;
@@ -72,7 +58,7 @@ namespace Accountant.API.Repository
                 var Admins = await _context.Admins.ToListAsync();
                 return Admins;
             }
-            catch (Exception ex) 
+            catch (Exception)
             {
                 // log exception
                 throw;
@@ -83,8 +69,10 @@ namespace Accountant.API.Repository
         {
             try
             {
-                var user = await _context.Users.Where(sp => sp.UserName== spec || sp.Email== spec).FirstOrDefaultAsync();
-                return user;
+                var user = await _context.Users.Where(sp => sp.UserName == spec || sp.Email == spec).FirstOrDefaultAsync();
+                if(user != null)
+                    return user;
+                return new User();
             }
             catch (Exception)
             {
@@ -93,16 +81,20 @@ namespace Accountant.API.Repository
             }
         }
 
-        public async Task<ICollection<User>> GetUsers()
+        public async Task<Admin> loginAdmin(string AdminSpec, string password)
         {
             try
             {
-                var users = await _context.Users.ToListAsync();
-                return users;
+                var admin = await _context.Admins.Where(af => (af.AdminFirstname == AdminSpec || af.AdminAlias == AdminSpec)
+                                                && (af.AdminPassword == password)).FirstOrDefaultAsync();
+                if (admin != null)
+                    return admin;
+               
+                return new Admin();
             }
-            catch (Exception)
+            catch
             {
-                // log exception
+                // lox exception
                 throw;
             }
         }
@@ -117,8 +109,8 @@ namespace Accountant.API.Repository
         {
             try
             {
-                var user = await _context.Users.Where(sp => sp.UserName == spec || sp.Email== spec).FirstOrDefaultAsync();
-                if (user != null) 
+                var user = await _context.Users.Where(sp => sp.UserName == spec || sp.Email == spec).FirstOrDefaultAsync();
+                if (user != null)
                 {
                     user.Password = password;
                     _context.Users.Update(user);

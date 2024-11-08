@@ -6,8 +6,7 @@ namespace Accountant.API.Repository.Interfaces
     {
         Task<ICollection<Admin>> GetAdmins();
         Task<Admin> GetAdminById(int id);
-        Task<Admin> GetAdminByAlias(string AliasName);
-        Task<ICollection<User>> GetUsers();
+        Task<Admin> loginAdmin(string AdminSpec , string password);
         Task<User> GetUserByUsernameOrEmail(string spec);
         Task<bool> UpdateUserPassword(string spec , string password);
         Task<bool> DeleteUser(string spec);

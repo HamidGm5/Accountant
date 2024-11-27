@@ -31,16 +31,16 @@ namespace Accountant.API.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{id:int}", Name = "GetAdminByID")]
+        [HttpGet("{AdminID:int}", Name = "GetAdminByID")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
 
-        public async Task<ActionResult<AdminDto>> GetAdminByID(int ID)
+        public async Task<ActionResult<AdminDto>> GetAdminByID(int AdminID)
         {
             try
             {
-                var Admin = await _repository.GetAdminById(ID);
+                var Admin = await _repository.GetAdminById(AdminID);
                 if (Admin == new Admin())
                 {
                     return NotFound();
@@ -53,16 +53,16 @@ namespace Accountant.API.Controllers
             }
         }
 
-        [HttpGet("{spec}", Name = "GetUserBySpec")]
+        [HttpGet("{UserSpec}", Name = "GetUserBySpec")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
 
-        public async Task<ActionResult<UserDto>> GetUserBySpec(string spec)
+        public async Task<ActionResult<UserDto>> GetUserBySpec(string UserSpec)
         {
             try
             {
-                var user = await _repository.GetUserByUsernameOrEmail(spec);
+                var user = await _repository.GetUserByUsernameOrEmail(UserSpec);
                 if (user == new User())
                     return NotFound();
 
@@ -95,15 +95,15 @@ namespace Accountant.API.Controllers
             }
         }
 
-        [HttpPut("{spec}/{password}")]
+        [HttpPatch("{Email}/{password}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
 
-        public async Task<ActionResult<bool>> UpdateUserPassword(string spec, string password)
+        public async Task<ActionResult<bool>> UpdateUserPassword(string Email, string password)
         {
             try
             {
-                var update = await _repository.UpdateUserPassword(spec, password);
+                var update = await _repository.UpdateUserPassword(Email, password);
                 if (update)
                     return Ok(true);
                 return BadRequest();

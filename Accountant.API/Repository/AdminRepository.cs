@@ -69,9 +69,11 @@ namespace Accountant.API.Repository
         {
             try
             {
-                var user = await _context.Users.Where(sp => sp.UserName == spec || sp.Email == spec).FirstOrDefaultAsync();
+                var user = await _context.Users.Where(sp => sp.UserName.ToLower() == spec 
+                                        || sp.Email.ToLower() == spec).FirstOrDefaultAsync();
                 if(user != null)
                     return user;
+
                 return new User();
             }
             catch (Exception)
@@ -109,7 +111,7 @@ namespace Accountant.API.Repository
         {
             try
             {
-                var user = await _context.Users.Where(sp => sp.UserName == spec || sp.Email == spec).FirstOrDefaultAsync();
+                var user = await _context.Users.Where(sp =>sp.Email == spec).FirstOrDefaultAsync();
                 if (user != null)
                 {
                     user.Password = password;

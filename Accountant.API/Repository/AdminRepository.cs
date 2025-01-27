@@ -1,6 +1,5 @@
 ﻿using Accountant.API.Data;
 using Accountant.API.Entities;
-using Accountant.API.Migrations;
 using Accountant.API.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,6 +41,10 @@ namespace Accountant.API.Repository
             try
             {
                 var Admin = await _context.Admins.Where(ad => ad.Id == id).FirstOrDefaultAsync();
+                if(Admin != null)
+                {
+                    return Admin;
+                }
                 return new Admin();
             }
             catch (Exception)

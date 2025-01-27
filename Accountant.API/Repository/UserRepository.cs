@@ -68,7 +68,7 @@ namespace Accountant.API.Repository
 
         public async Task<User> SignUp(User users)
         {
-            var newuser = await _context.AddAsync(users);
+            var newuser = await _context.Users.AddAsync(users);
 
             if (newuser != null)
             {

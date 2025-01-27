@@ -27,8 +27,4 @@
     <ProjectReference Include="..\Accountant.Model\Accountant.Model.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

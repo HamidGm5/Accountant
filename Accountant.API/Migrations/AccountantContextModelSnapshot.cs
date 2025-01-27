@@ -70,9 +70,6 @@ namespace Accountant.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AdminId")
-                        .HasColumnType("int");
-
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
@@ -86,8 +83,6 @@ namespace Accountant.API.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AdminId");
 
                     b.HasIndex("userId");
 
@@ -168,9 +163,6 @@ namespace Accountant.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AdminId")
-                        .HasColumnType("int");
-
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
@@ -185,8 +177,6 @@ namespace Accountant.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdminId");
-
                     b.HasIndex("userId");
 
                     b.ToTable("PaymentTransactions");
@@ -199,9 +189,6 @@ namespace Accountant.API.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("AdminId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -220,17 +207,11 @@ namespace Accountant.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdminId");
-
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Accountant.API.Entities.IncomeTransaction", b =>
                 {
-                    b.HasOne("Accountant.API.Entities.Admin", null)
-                        .WithMany("IncomeTransaction")
-                        .HasForeignKey("AdminId");
-
                     b.HasOne("Accountant.API.Entities.User", "User")
                         .WithMany("IncomeTransactions")
                         .HasForeignKey("userId")
@@ -264,10 +245,6 @@ namespace Accountant.API.Migrations
 
             modelBuilder.Entity("Accountant.API.Entities.PaymentTransaction", b =>
                 {
-                    b.HasOne("Accountant.API.Entities.Admin", null)
-                        .WithMany("PaymentTransaction")
-                        .HasForeignKey("AdminId");
-
                     b.HasOne("Accountant.API.Entities.User", "User")
                         .WithMany("PaymentTransactions")
                         .HasForeignKey("userId")
@@ -275,22 +252,6 @@ namespace Accountant.API.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Accountant.API.Entities.User", b =>
-                {
-                    b.HasOne("Accountant.API.Entities.Admin", null)
-                        .WithMany("Users")
-                        .HasForeignKey("AdminId");
-                });
-
-            modelBuilder.Entity("Accountant.API.Entities.Admin", b =>
-                {
-                    b.Navigation("IncomeTransaction");
-
-                    b.Navigation("PaymentTransaction");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Accountant.API.Entities.Loan", b =>

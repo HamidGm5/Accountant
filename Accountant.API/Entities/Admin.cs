@@ -10,9 +10,5 @@
         public string NationalCode { get; set; }
         public string NationalCardImgURL { get; set; }
         public string? AdminPhoto { get; set; }
-
-        public ICollection<User> Users { get; set; }
-        public ICollection<IncomeTransaction> IncomeTransaction { get; set; }
-        public ICollection<PaymentTransaction> PaymentTransaction { get; set; }
     }
 }
